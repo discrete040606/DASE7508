@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "simulated": false,
+  "pilot": false,
+  "config": {
+    "model": "deepseek-flash",
+    "base_url": "https://api.deepseek.com",
+    "temperature": 0.2,
+    "planning_tokens": 256,
+    "answer_tokens": 512,
+    "timeout_seconds": 60,
+    "max_retries": 2,
+    "top_k": 5,
+    "repetitions": 5,
+    "seed": 7508,
+    "embedding": "all-MiniLM-L6-v2",
+    "budget_usd": 20.0,
+    "input_usd_per_million": 0.3,
+    "cached_input_usd_per_million": 0.006,
+    "output_usd_per_million": 1.2,
+    "pricing_checked": "2026-11-13",
+    "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing/"
+  },
+  "memories_sha256": "b15ce52fdbd56a6e064f36e06ab3e1245eb571ff31e2bae72ce8a0a8e5124d9c",
+  "cases_sha256": "b0c5fac0f9a77f0fc42bb00a61fb17ccb7a2d003a5406e337d032e30857251ef",
+  "ground_truth_sha256": "0be3fdf7148d01df72ae15f43a0ce63147c86bd5a41aee6cdaa2c5e1c27a69f7",
+  "code": {
+    "pyproject.toml": "158886b64104d564c0f9bd2a251974af49dcf80791f8838320b34c9cd773ac2d",
+    "src/memory_lab/__init__.py": "7505fc4db94460260438ca45d65ea5e02545f32b5219acaccb3ecc84f62e56a5",
+    "src/memory_lab/agent.py": "7d774c99d2fc44f86930e7e4dfe6d2f517bef2f4f94a7064f816b0e3e9a4cb21",
+    "src/memory_lab/analysis.py": "5853197de5f71301033ab6b5025d0889ce54f75fea8c0dde8c0619e87b13cbea",
+    "src/memory_lab/cli.py": "2eabc2aa6190ff2085354b8d6a9a2ed5055e42670b94ecebd61aadb258882274",
+    "src/memory_lab/data.py": "40377ae2e6baddc0f2b7e3c0e4131a3ddda310ecb968c0681333aee301d7851f",
+    "src/memory_lab/evaluation.py": "78eb7f3ea5abe8cc59daa6ad29df2ac3274b11298f8492236fc102310926422f",
+    "src/memory_lab/models.py": "9bac8e599c365d7060f14729d3fbcd178998924585212c3598f102b8a54c6fe9",
+    "src/memory_lab/provider.py": "538b625085d5bd6816e8c88f38039fcc78779427ebe0df1984a63abeeb72cdb8",
+    "src/memory_lab/retrieval.py": "dabbdf5b03ef0216c52f8853e81a3d5a464f5f86984ded598e819ded17a22164",
+    "src/memory_lab/runner.py": "3c5c105cf8ee41625210ad5de0c077ceb1cf3d95261d589bd41495e88238beac",
+    "app/demo.py": "3bf0e0a796ebec408490557aa04f40b7f2249b782207a309631bdc773d1a1c4e"
+  },
+  "commit": "d68762dd5276fd19402ab0ecc94a6d7b317baea0",
+  "working_tree_dirty": false,
+  "lock_sha256": "4157c0dc82d34a021e2060ce90c0cb5c9473c0ad8bb92201f787751a7430e7b4",
+  "python": "3.11.18 (main, Nov 11 2026, 00:08:53) [Clang 23.1.3 ]",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "packages": {
+    "chromadb": "1.5.9",
+    "openai": "2.54.0",
+    "pydantic": "2.14.3",
+    "PyYAML": "6.0.3",
+    "pandas": "2.3.3",
+    "matplotlib": "3.11.2",
+    "streamlit": "1.67.0"
+  },
+  "embedding_files": {
+    "all-MiniLM-L6-v2/onnx/config.json": "b567c7d5a55b636c95186aaf993f9a8920842b7e05a9e703e68b23cab2c3a670",
+    "all-MiniLM-L6-v2/onnx/model.onnx": "4f148ba8ae9c2c7fbee4af2b132db8d06c6a6545b47fc83bbb98c3d22b8393e6",
+    "all-MiniLM-L6-v2/onnx/special_tokens_map.json": "b6d346be366a7d1d48332dbc9fdf3bf8960b5d879522b7799ddba59e76237ee3",
+    "all-MiniLM-L6-v2/onnx/tokenizer.json": "da0e79933b9ed51798a3ae27893d3c5fa4a201126cef75586296df9b4d2c62a0",
+    "all-MiniLM-L6-v2/onnx/tokenizer_config.json": "7702051bbc4953b94d47fa1d61b42ed4cbb3c71b501a8dd7183a823f8bea1f20",
+    "all-MiniLM-L6-v2/onnx/vocab.txt": "07eced375cec144d27c900241f3e339478dec958f92fddbc551f295c992038a3",
+    "all-MiniLM-L6-v2/onnx.tar.gz": "913d7300ceae3b2dbc2c50d1de4baacab4be7b9380491c27fab7418616a16ec3"
+  },
+  "prompt": "You are a personal memory assistant. Use the search_memory tool to find relevant stored memories, then answer the user's question from the returned records. For each user turn, call search_memory exactly once with a single query. Combine all search needs into that one query; never issue parallel, alternative, or duplicate tool calls. After the tool returns, answer without further tools. Do not invent memories. If no useful record is returned, say so.",
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "search_memory",
+        "description": "Search stored memories for the user's question.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "query"
+          ],
+          "additionalProperties": false
+        }
+      }
+    }
+  ]
+}

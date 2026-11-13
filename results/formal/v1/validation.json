@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "unique_trials": 300,
+  "trials_per_condition": 75,
+  "complete": 300,
+  "errors": 0,
+  "user_turns": 340,
+  "api_requests": 680,
+  "api_responses": 680,
+  "api_errors": 0,
+  "model": "deepseek-flash",
+  "source_commit": "d68762dd5276fd19402ab0ecc94a6d7b317baea0",
+  "frozen_manifest_unchanged": true,
+  "filter_constraints_verified": true,
+  "formal_cost_upper_usd": 0.17913330000000033,
+  "project_cost_upper_usd": 0.2017430999999994
+}
