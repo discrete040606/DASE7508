@@ -1,4 +1,4 @@
-# Report and presentation
+# Report and presentation outline
 
 Coordinator: Hou Dianqi. Each technical owner provides verified content and evidence.
 
@@ -12,4 +12,4 @@ Planned report/presentation outline:
 7. Actual results, utility, latency and cost
 8. Limitations, reproducibility, AI assistance and contributions
 
-Create report, figure and slide files here as work progresses. No final report/presentation exists yet. Do not upload the original proposal unchanged because it includes student IDs.
+Place the final course report and presentation beside this outline when prepared. Experimental figures remain in results/formal/v1/analysis/. No final report/presentation exists yet. Do not upload the original proposal unchanged because it includes student IDs.

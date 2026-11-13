@@ -6,8 +6,8 @@ from .models import Config
 
 
 def prepare_environment(root):
-    os.environ.setdefault("CHROMA_CACHE_DIR", str(root / ".model-cache"))
-    os.environ.setdefault("MPLCONFIGDIR", str(root / ".cache" / "matplotlib"))
+    os.environ.setdefault("CHROMA_CACHE_DIR", str(root / ".local" / "models"))
+    os.environ.setdefault("MPLCONFIGDIR", str(root / ".local" / "cache" / "matplotlib"))
     os.environ.setdefault("ANONYMIZED_TELEMETRY", "False")
 
 
@@ -41,7 +41,7 @@ def main():
     elif args.command == "index":
         from .retrieval import Store
         memories, _, _ = load(root)
-        store = Store(root / "chroma_db", memories, initialize=True)
+        store = Store(root / ".local" / "chroma", memories, initialize=True)
         print(f"Indexed {store.collection.count()} records with local all-MiniLM-L6-v2.")
     elif args.command == "run":
         if args.limit is not None and args.limit < 1:

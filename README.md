@@ -10,6 +10,25 @@
 
 离线协议夹具用于验证代码，会回显检索记录，**不是 DeepSeek 模型，也不是研究结果**。正式结果必须由真实 API 运行产生。本项目只使用虚构数据，不训练模型、不实现生产认证、不部署公网。
 
+## 项目导航
+
+```text
+Agent project/
+├── src/memory_lab/       核心实验代码
+├── app/                  中文演示网页
+├── tests/                自动测试
+├── configs/              实验参数
+├── data/                 合成输入与评估答案
+├── results/              正式实验与试跑证据
+├── docs/                 设计、结果、验证、协作和提交说明
+├── launch_demo.command   双击启动网页
+└── .local/               本地索引、模型、缓存、费用账本和工具（不上传）
+```
+
+优先阅读 [文档导航](docs/README.md)、[正式实验结果](docs/formal-results.md) 和 [结果文件导航](results/README.md)。每次运行目录保留 `manifest.json`，其余文件按 `raw/`（原始日志）、`inputs/`（输入快照）、`analysis/`（表格与图表）分组。既有实验数据只移动位置，原始内容不改写。
+
+`.venv/` 和 `.python/` 是现有 Python 环境，保留原位以免破坏解释器路径；`.env` 是本地密钥，`.idea/` 是本地 IDE 设置，均不进入 GitHub。不要删除 `.local/runtime/budget.json`，它保留之前的累计费用。
+
 ## 安装
 
 开发及验证环境：macOS、Python 3.11；使用 POSIX 文件锁，因此 Windows 应通过 WSL 运行。所有依赖版本见 `requirements.lock.txt`。
@@ -48,7 +67,7 @@ memory-lab analyze results/offline/check
 ## 中文网页
 
 ```bash
-streamlit run app/demo.py --server.address 127.0.0.1 --browser.gatherUsageStats false
+streamlit run app/demo.py --server.address 127.0.0.1 --server.headless true --browser.gatherUsageStats false
 ```
 
 也可以在 Finder 中双击 `launch_demo.command`。打开终端显示的 localhost 地址。网页默认离线演示，切换到真实 API 前先在启动终端设置密钥。
@@ -80,7 +99,7 @@ API 默认 `deepseek-flash`、关闭思考、temperature=0.2、top_k=5、规划/
 - 对同一输出目录再次执行相同命令即可续跑；已完成槽位不重复执行。可用 `--limit 2` 暂停在少量槽位后。
 - 数据、代码、依赖、配置或运行环境变化时，拒绝混入原目录；应新建版本目录。
 - 未完成槽位重试时使用全新会话，并保留此前尝试和中断检查点；任一次尝试已观察到的泄露不能被后续安全回答抵消。
-- 网页、试跑及正式实验共享 `.runtime/budget.json`，使用保守高峰价格估算与请求前预留，累计上限 20 美元。未知 usage 保留预留费用，不自动退款。
+- 网页、试跑及正式实验共享 `.local/runtime/budget.json`，使用保守高峰价格估算与请求前预留，累计上限 20 美元。未知 usage 保留预留费用，不自动退款。
 - 不要删除费用账本来绕过上限。该账本只涵盖本项目调用，最终费用以服务商账单为准；价格变动后先更新配置并创建新实验版本。
 - 全局文件锁防止网页与批量实验并行发请求；正式实验期间网页请求会明确失败。
 
@@ -94,7 +113,7 @@ API 默认 `deepseek-flash`、关闭思考、temperature=0.2、top_k=5、规划/
 - `manifest.json` 固定代码/数据/配置哈希、依赖、Python、平台、模型文件哈希、提示词与 Git 提交；`schedule.json` 固定实验槽位。
 - `events.jsonl` 保存逐轮检查点；`api.jsonl` 保存去掉认证信息的请求/响应及请求费用；`trials.jsonl` 保存每次完整或失败尝试。
 
-具体设计见 [实验计划](docs/experiment-plan.md)、[架构图](docs/architecture.md) 和 [验证记录](docs/verification.md)。评估答案单独保存，程序不把它传入模型。共享向量库仅包含合成记忆；实验不写入对话记忆。
+具体设计见 [实验计划](docs/design/experiment-plan.md)、[架构图](docs/design/architecture.md) 和 [验证记录](docs/validation/verification.md)。评估答案单独保存，程序不把它传入模型。共享向量库仅包含合成记忆；实验不写入对话记忆。
 
 ## 代码结构与协作
 
@@ -102,6 +121,6 @@ API 默认 `deepseek-flash`、关闭思考、temperature=0.2、top_k=5、规划/
 
 按组长 2026-11-13 的决定：保留 Issue、分支、PR 和验证证据，必要检查通过后直接合并 main，不等待交叉评审。未发生的人工评审不会标为完成。该决定与课程手册的队友评审流程不同。
 
-保留 [成员分工](docs/team-plan.md)、[AI 使用说明](docs/ai-usage.md) 和 [课程提交检查表](docs/submission-checklist.md)。技术内容由杨凌峰发起统一实现，实际成员贡献按真实记录更新，不把计划分工冒充已完成贡献。
+保留 [成员分工](docs/collaboration/team-plan.md)、[AI 使用说明](docs/collaboration/ai-usage.md) 和 [课程提交检查表](docs/submission/submission-checklist.md)。技术内容由杨凌峰发起统一实现，实际成员贡献按真实记录更新，不把计划分工冒充已完成贡献。
 
 参考：[DeepSeek 工具调用](https://api-docs.deepseek.com/guides/tool_calls/)、[DeepSeek 计价](https://api-docs.deepseek.com/quick_start/pricing/)、[Chroma 元数据过滤](https://docs.trychroma.com/docs/querying-collections/metadata-filtering)。

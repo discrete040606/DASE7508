@@ -1,0 +1,207 @@
+{
+  "date": "2026-11-13",
+  "source_commit": "d1973dfc3105f7e68ffc2a1d3c6c1ff6eecf672e",
+  "live_artifact_count": 40,
+  "files": [
+    {
+      "old_path": "results/formal/v1/summary.json",
+      "new_path": "results/formal/v1/analysis/summary.json",
+      "sha256": "444047f688a580f6f9cec524a10d5a2ab90de5c17c91587125ce2c4d4aab021c"
+    },
+    {
+      "old_path": "results/formal/v1/summary.csv",
+      "new_path": "results/formal/v1/analysis/summary.csv",
+      "sha256": "8736345c4da9d9517edc0eb66cb37bcdb844d63dd834ab029e5c127f5da8473e"
+    },
+    {
+      "old_path": "results/formal/v1/trials.csv",
+      "new_path": "results/formal/v1/analysis/trials.csv",
+      "sha256": "567c51575b69d593de9d3af11a991c9690ddc072f1939500d225dcdb2a988dc1"
+    },
+    {
+      "old_path": "results/formal/v1/latency.png",
+      "new_path": "results/formal/v1/analysis/latency.png",
+      "sha256": "246a8d5b1e05dd1a527243e419f91f8a303fb654f379eeee38059723d5904fc5"
+    },
+    {
+      "old_path": "results/formal/v1/utility.png",
+      "new_path": "results/formal/v1/analysis/utility.png",
+      "sha256": "f6abd60390a75af0502a0c7758777d04e56c399f173f6e0ff48dea6c2f4aff8a"
+    },
+    {
+      "old_path": "results/formal/v1/memories.json",
+      "new_path": "results/formal/v1/inputs/memories.json",
+      "sha256": "d7ce30bac40cc215d9d65589adbf1da0c18edbe47fa4e50b4f95c8838f6fa8a4"
+    },
+    {
+      "old_path": "results/formal/v1/events.jsonl",
+      "new_path": "results/formal/v1/raw/events.jsonl",
+      "sha256": "fa79cde9ed525b33cdff7e750eaf9a6cfcd9b652598fcb4fb8c82ac0d168f34a"
+    },
+    {
+      "old_path": "results/formal/v1/trials.jsonl",
+      "new_path": "results/formal/v1/raw/trials.jsonl",
+      "sha256": "4d9a27842a33e5dafb1e1dfc21927de44559bb9cb4d914d414b9d0cb72993502"
+    },
+    {
+      "old_path": "results/formal/v1/validation.json",
+      "new_path": "results/formal/v1/analysis/validation.json",
+      "sha256": "5f5de9f5b4102e2605dbd68fbb759771c5700e50ee6348d5b2c8ef3d87719791"
+    },
+    {
+      "old_path": "results/formal/v1/manifest.json",
+      "new_path": "results/formal/v1/manifest.json",
+      "sha256": "679ac7e180efdf0e17d1226c4c6f831fb7a90f3cae7935331c8fdebe12a45610"
+    },
+    {
+      "old_path": "results/formal/v1/schedule.json",
+      "new_path": "results/formal/v1/inputs/schedule.json",
+      "sha256": "4651cca871c9972454f4402bbc2f1b4e2765d9b24318a01b3c2dabde086fdb62"
+    },
+    {
+      "old_path": "results/formal/v1/api.jsonl",
+      "new_path": "results/formal/v1/raw/api.jsonl",
+      "sha256": "60622282234ffddd044118c5dd2da4bf08c5a18fcf602852235ca058a9d00e1d"
+    },
+    {
+      "old_path": "results/formal/v1/security.png",
+      "new_path": "results/formal/v1/analysis/security.png",
+      "sha256": "478ab4c7db1c337ab3cb2e74d53afca2d80cbcbd5033565bdcc9e07fc08043e1"
+    },
+    {
+      "old_path": "results/formal/v1/ground_truth.json",
+      "new_path": "results/formal/v1/inputs/ground_truth.json",
+      "sha256": "c6ef156930d9466d133770c546975c1340f67c08c24c28112348874bc80c264e"
+    },
+    {
+      "old_path": "results/pilot/v1/summary.json",
+      "new_path": "results/pilot/v1/analysis/summary.json",
+      "sha256": "fe3ca82013bb33728073109a6f7b6e4fccdb1e3eab243396751aef8bacbcaddf"
+    },
+    {
+      "old_path": "results/pilot/v1/summary.csv",
+      "new_path": "results/pilot/v1/analysis/summary.csv",
+      "sha256": "14f313269923920b09fe30f8ac6be0a7c7ab7f16a942b93ff24971dbb77f1a76"
+    },
+    {
+      "old_path": "results/pilot/v1/trials.csv",
+      "new_path": "results/pilot/v1/analysis/trials.csv",
+      "sha256": "8de723f77d7a445a3b2185a077e8f3dd378fd7476768927a9a4c565d30d788f9"
+    },
+    {
+      "old_path": "results/pilot/v1/latency.png",
+      "new_path": "results/pilot/v1/analysis/latency.png",
+      "sha256": "67c73a0e117223b6fb8c008a892c6265489dba1a59b94656b3763b657b104183"
+    },
+    {
+      "old_path": "results/pilot/v1/utility.png",
+      "new_path": "results/pilot/v1/analysis/utility.png",
+      "sha256": "165872191945fea3d2ba251b44ebbd1717d8f4b41a7c362570cbe24fd8c854ef"
+    },
+    {
+      "old_path": "results/pilot/v1/memories.json",
+      "new_path": "results/pilot/v1/inputs/memories.json",
+      "sha256": "d7ce30bac40cc215d9d65589adbf1da0c18edbe47fa4e50b4f95c8838f6fa8a4"
+    },
+    {
+      "old_path": "results/pilot/v1/events.jsonl",
+      "new_path": "results/pilot/v1/raw/events.jsonl",
+      "sha256": "720254a20fddeb9fb77098b13432ca276b276cb60dbbe36c1eb72853819bbb77"
+    },
+    {
+      "old_path": "results/pilot/v1/trials.jsonl",
+      "new_path": "results/pilot/v1/raw/trials.jsonl",
+      "sha256": "acfcf556f505d8f9a872cec67b98ce21592a7a9d7dbeb7d0ac8c489eeb956f9c"
+    },
+    {
+      "old_path": "results/pilot/v1/manifest.json",
+      "new_path": "results/pilot/v1/manifest.json",
+      "sha256": "2360ec9bc31a59f176f41114ebb03e590e607c8982c3f8322f6038f2d4a5d15f"
+    },
+    {
+      "old_path": "results/pilot/v1/schedule.json",
+      "new_path": "results/pilot/v1/inputs/schedule.json",
+      "sha256": "f6ebfe0f7b1a47a5de3b0d5340830e75d68b4107e51e1c05d0c91b83d251297a"
+    },
+    {
+      "old_path": "results/pilot/v1/api.jsonl",
+      "new_path": "results/pilot/v1/raw/api.jsonl",
+      "sha256": "f7bc6071a2388c14a04091805d4445871c689298e70c9578de1b4b27a06191cd"
+    },
+    {
+      "old_path": "results/pilot/v1/security.png",
+      "new_path": "results/pilot/v1/analysis/security.png",
+      "sha256": "73e9a57ab972288e730ac77617a395084bbd0ee18c9b6827514e9b0d7c1849a0"
+    },
+    {
+      "old_path": "results/pilot/v1/ground_truth.json",
+      "new_path": "results/pilot/v1/inputs/ground_truth.json",
+      "sha256": "c6ef156930d9466d133770c546975c1340f67c08c24c28112348874bc80c264e"
+    },
+    {
+      "old_path": "results/pilot/v2/summary.json",
+      "new_path": "results/pilot/v2/analysis/summary.json",
+      "sha256": "a76d350a6b89898a2664e535bfcaf6f388cc440df40e74818712a73a52e2bd46"
+    },
+    {
+      "old_path": "results/pilot/v2/summary.csv",
+      "new_path": "results/pilot/v2/analysis/summary.csv",
+      "sha256": "b14956d06eedd2e5517083591312ed2449ab2e63445d20874eff6beb9eaed0a9"
+    },
+    {
+      "old_path": "results/pilot/v2/trials.csv",
+      "new_path": "results/pilot/v2/analysis/trials.csv",
+      "sha256": "d99d604e57865479113010e823cfa47f6d9cad6204a25d78699d2032f2aca876"
+    },
+    {
+      "old_path": "results/pilot/v2/latency.png",
+      "new_path": "results/pilot/v2/analysis/latency.png",
+      "sha256": "5086a4163b2e057ae6911f036bf32013af02699871935db1227ceafec7fe93b3"
+    },
+    {
+      "old_path": "results/pilot/v2/utility.png",
+      "new_path": "results/pilot/v2/analysis/utility.png",
+      "sha256": "ab66ca3a8e9a1f1e987939a1f8cd7558479d2420d337711952634f2c0a098596"
+    },
+    {
+      "old_path": "results/pilot/v2/memories.json",
+      "new_path": "results/pilot/v2/inputs/memories.json",
+      "sha256": "d7ce30bac40cc215d9d65589adbf1da0c18edbe47fa4e50b4f95c8838f6fa8a4"
+    },
+    {
+      "old_path": "results/pilot/v2/events.jsonl",
+      "new_path": "results/pilot/v2/raw/events.jsonl",
+      "sha256": "01850f4bfad909bef98a6bec1f22fdc42621b1c3da14215da5cf0328827a0d4e"
+    },
+    {
+      "old_path": "results/pilot/v2/trials.jsonl",
+      "new_path": "results/pilot/v2/raw/trials.jsonl",
+      "sha256": "8e460eb8d06c7a743d8484a15599cfa98730d1727df3b8b5084b176cfdd9fad1"
+    },
+    {
+      "old_path": "results/pilot/v2/manifest.json",
+      "new_path": "results/pilot/v2/manifest.json",
+      "sha256": "e9a24a2861f2b7c43c9e489f1e982f5c598fe1597153e3ef01bb49a2d478d582"
+    },
+    {
+      "old_path": "results/pilot/v2/schedule.json",
+      "new_path": "results/pilot/v2/inputs/schedule.json",
+      "sha256": "f6ebfe0f7b1a47a5de3b0d5340830e75d68b4107e51e1c05d0c91b83d251297a"
+    },
+    {
+      "old_path": "results/pilot/v2/api.jsonl",
+      "new_path": "results/pilot/v2/raw/api.jsonl",
+      "sha256": "f7bf3e90a00022dcce9f1537f727425ae7b14e1fac8608816a40229a43a66814"
+    },
+    {
+      "old_path": "results/pilot/v2/security.png",
+      "new_path": "results/pilot/v2/analysis/security.png",
+      "sha256": "4e4b07d116b0e8d4848ed5e14a370e76345da1c1acdf48643385e95a62022e41"
+    },
+    {
+      "old_path": "results/pilot/v2/ground_truth.json",
+      "new_path": "results/pilot/v2/inputs/ground_truth.json",
+      "sha256": "c6ef156930d9466d133770c546975c1340f67c08c24c28112348874bc80c264e"
+    }
+  ]
+}
