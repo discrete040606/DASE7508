@@ -218,3 +218,16 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Course project: local secrets, private data and persistent memory
+.env.*
+!.env.example
+*.pem
+*.key
+credentials*.json
+secrets*.json
+chromadb/
+.chroma/
+chroma_db/
+data/private/
+.DS_Store
