@@ -17,3 +17,7 @@ Executed from the project root:
 The offline provider deliberately echoes retrieved records. Its apparent disclosure rates are fixture behaviour, not measured DeepSeek behaviour. Offline files remain locally under the ignored results/offline directory and can be regenerated using the commands above.
 
 Not executed: real DeepSeek calls, live pilot, live 300-trial research experiment. DEEPSEEK_API_KEY was not configured in the execution environment. No real-model security or cost findings are claimed. The next step is to configure the key locally, run the pilot, inspect the evidence, and start a new frozen formal run directory.
+
+## Live follow-up
+
+Real API access is now configured. See [the live pilot record](live-pilot.md) for the initial protocol failure, fix, 22 passing tests and the corrected 24/24 real pilot. Historical offline evidence above remains separately labelled. Formal experiment results must be read from their own frozen run directory.

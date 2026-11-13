@@ -250,6 +250,7 @@ python-dateutil==4.0.0
     #   pandas
 python-dotenv==1.2.4
     # via
+    #   dase7508-memory-lab (pyproject.toml)
     #   pydantic-settings
     #   uvicorn
 python-multipart==0.0.33

@@ -19,6 +19,12 @@ class FatalAPIError(RuntimeError):
     pass
 
 
+def load_api_key(root: Path):
+    from dotenv import dotenv_values
+    return (os.environ.get("DEEPSEEK_API_KEY") or
+            dotenv_values(root / ".env", interpolate=False).get("DEEPSEEK_API_KEY") or "").strip()
+
+
 @contextlib.contextmanager
 def exclusive(path: Path):
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -78,7 +84,7 @@ class DeepSeek:
 
     def __init__(self, root: Path, config, journal: Path):
         from openai import OpenAI
-        key = os.environ.get("DEEPSEEK_API_KEY")
+        key = load_api_key(root)
         if not key:
             raise ValueError("Set DEEPSEEK_API_KEY locally before a live run")
         if config.model != "deepseek-flash":

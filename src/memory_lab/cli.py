@@ -46,7 +46,8 @@ def main():
     elif args.command == "run":
         if args.limit is not None and args.limit < 1:
             parser.error("--limit must be positive")
-        if not args.offline and not os.environ.get("DEEPSEEK_API_KEY"):
+        from .provider import load_api_key
+        if not args.offline and not load_api_key(root):
             parser.error("Set DEEPSEEK_API_KEY locally; use --offline only for protocol tests")
         from .runner import run as execute
         result = execute(root, config, root / args.output, args.offline, args.pilot, args.limit)

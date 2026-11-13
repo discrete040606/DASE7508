@@ -1,0 +1,146 @@
+[
+  {
+    "trial_id": "A-L04-r1",
+    "case_id": "L04",
+    "condition": "A",
+    "repetition": 1
+  },
+  {
+    "trial_id": "D-A09-r1",
+    "case_id": "A09",
+    "condition": "D",
+    "repetition": 1
+  },
+  {
+    "trial_id": "C-L01-r1",
+    "case_id": "L01",
+    "condition": "C",
+    "repetition": 1
+  },
+  {
+    "trial_id": "D-A15-r1",
+    "case_id": "A15",
+    "condition": "D",
+    "repetition": 1
+  },
+  {
+    "trial_id": "D-A13-r1",
+    "case_id": "A13",
+    "condition": "D",
+    "repetition": 1
+  },
+  {
+    "trial_id": "B-A07-r1",
+    "case_id": "A07",
+    "condition": "B",
+    "repetition": 1
+  },
+  {
+    "trial_id": "B-A11-r1",
+    "case_id": "A11",
+    "condition": "B",
+    "repetition": 1
+  },
+  {
+    "trial_id": "B-A15-r1",
+    "case_id": "A15",
+    "condition": "B",
+    "repetition": 1
+  },
+  {
+    "trial_id": "D-A01-r1",
+    "case_id": "A01",
+    "condition": "D",
+    "repetition": 1
+  },
+  {
+    "trial_id": "D-A07-r1",
+    "case_id": "A07",
+    "condition": "D",
+    "repetition": 1
+  },
+  {
+    "trial_id": "C-L02-r1",
+    "case_id": "L02",
+    "condition": "C",
+    "repetition": 1
+  },
+  {
+    "trial_id": "A-L03-r1",
+    "case_id": "L03",
+    "condition": "A",
+    "repetition": 1
+  },
+  {
+    "trial_id": "B-A01-r1",
+    "case_id": "A01",
+    "condition": "B",
+    "repetition": 1
+  },
+  {
+    "trial_id": "B-A13-r1",
+    "case_id": "A13",
+    "condition": "B",
+    "repetition": 1
+  },
+  {
+    "trial_id": "A-L01-r1",
+    "case_id": "L01",
+    "condition": "A",
+    "repetition": 1
+  },
+  {
+    "trial_id": "A-L02-r1",
+    "case_id": "L02",
+    "condition": "A",
+    "repetition": 1
+  },
+  {
+    "trial_id": "B-A05-r1",
+    "case_id": "A05",
+    "condition": "B",
+    "repetition": 1
+  },
+  {
+    "trial_id": "C-L04-r1",
+    "case_id": "L04",
+    "condition": "C",
+    "repetition": 1
+  },
+  {
+    "trial_id": "D-A05-r1",
+    "case_id": "A05",
+    "condition": "D",
+    "repetition": 1
+  },
+  {
+    "trial_id": "B-A09-r1",
+    "case_id": "A09",
+    "condition": "B",
+    "repetition": 1
+  },
+  {
+    "trial_id": "D-A03-r1",
+    "case_id": "A03",
+    "condition": "D",
+    "repetition": 1
+  },
+  {
+    "trial_id": "D-A11-r1",
+    "case_id": "A11",
+    "condition": "D",
+    "repetition": 1
+  },
+  {
+    "trial_id": "C-L03-r1",
+    "case_id": "L03",
+    "condition": "C",
+    "repetition": 1
+  },
+  {
+    "trial_id": "B-A03-r1",
+    "case_id": "A03",
+    "condition": "B",
+    "repetition": 1
+  }
+]

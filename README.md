@@ -55,10 +55,10 @@ streamlit run app/demo.py --server.address 127.0.0.1 --browser.gatherUsageStats 
 
 ## 真实实验
 
-只在本地终端设置 `DEEPSEEK_API_KEY`。`.env.example` 是空模板，程序不自动读取 `.env`。不要将密钥写进仓库、聊天或截图。
+在本地终端设置 `DEEPSEEK_API_KEY`，或者在项目根目录的 `.env` 中填写该变量。程序优先使用环境变量，其次读取本地 `.env`，不执行变量插值。`.env` 已被 Git 忽略；不要将密钥写进代码、聊天或截图。
 
 ```bash
-# 在终端 export DEEPSEEK_API_KEY 后运行；不要将实际密钥放进文档。
+# 在本地 .env 填好密钥，或在终端 export DEEPSEEK_API_KEY 后运行。
 memory-lab run --pilot --output results/pilot/v1
 memory-lab analyze results/pilot/v1
 # 检查试跑日志，冻结代码、依赖、数据和配置并提交 Git，再执行：
