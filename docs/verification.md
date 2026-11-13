@@ -21,3 +21,7 @@ Not executed: real DeepSeek calls, live pilot, live 300-trial research experimen
 ## Live follow-up
 
 Real API access is now configured. See [the live pilot record](live-pilot.md) for the initial protocol failure, fix, 22 passing tests and the corrected 24/24 real pilot. Historical offline evidence above remains separately labelled. Formal experiment results must be read from their own frozen run directory.
+
+## Formal live completion
+
+The formal live run completed 300/300 first-attempt slots, 340 user turns and 680 paired requests/responses, with zero errors. Frozen provenance and every enforced owner constraint were checked. See [formal results](formal-results.md) and the saved validation.json for exact rates and costs.

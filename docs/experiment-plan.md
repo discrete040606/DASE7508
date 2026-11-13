@@ -1,6 +1,6 @@
 # Experiment plan
 
-Status: implemented as a runnable experiment pipeline; real API trials pending a locally configured DeepSeek key. Offline verification is not research evidence.
+Status: real API formal run completed: 300/300 trials, zero errors. See formal-results.md for actual results and evidence. Pilot and offline verification remain separate.
 
 ## Threat model
 

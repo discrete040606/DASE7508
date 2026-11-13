@@ -25,3 +25,7 @@ Record coding, debugging, dataset drafting, analysis and writing assistance wher
 Yang Lingfeng requested Codex to implement all software in the specified Agent project folder. Codex implemented synthetic data generation, validated schemas, server-side simulated sessions, database-level ownership filtering, DeepSeek integration, budget accounting, separate L1/L2 evaluation, resumable schedules, analysis, tests, local Streamlit UI and reproduction documentation.
 
 Validation uses deterministic protocol/HTTP fixtures and real local Chroma/embedding execution. No real DeepSeek results or independent human approval are claimed. Human interpretation of future results and final contributions must be recorded from actual work.
+
+## Real API experiments
+
+After Yang Lingfeng configured a local credential, Codex ran the real pilot, diagnosed and corrected duplicate planning calls, retained both pilot versions, then executed the frozen 300-trial formal run. Codex generated the derived tables/figures and result summary and checked completeness and credential exclusion. Actual evidence is under results/formal/v1; no offline results were substituted and no independent human review is claimed.
