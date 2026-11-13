@@ -24,7 +24,7 @@ Based on the DASE7508 GitHub Collaboration Manual. The actual project deadline a
 
 Sending an email and inviting the TA are separate actions. Creating the repository or sending an invitation alone is not submission. The following is a checklist/template; it does not indicate an email was sent.
 
-To: tianyufei.zhou@connect.hku.hk  
+To: tianyufei.zhou@connect.hku.hk
 Subject: DASE7508 Repository Submission - [Team name or number]
 
 - Team name or number: pending
