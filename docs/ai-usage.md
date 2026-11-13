@@ -9,7 +9,7 @@ The team remains responsible for understanding and checking all generated materi
 - Changes are repository preparation. No agent runtime, filter, dataset or experiment results are represented as complete.
 - Automated preparation checks are reported in the setup PR.
 - Human owner inspection: pending Yang Lingfeng's actual inspection.
-- Independent review: pending a different teammate's submitted review.
+- Independent review: not performed; omitted at the team leader's explicit request.
 - No email submission or completed teammate review is implied by generated documentation.
 
 ## Record future assistance
@@ -19,3 +19,9 @@ The team remains responsible for understanding and checking all generated materi
 | Pending | Pending | Pending | Pending | Pending | Pending |
 
 Record coding, debugging, dataset drafting, analysis and writing assistance where used. Do not invent a human approval, fabricate trial evidence or credit a planned contribution as completed.
+
+## Full software implementation
+
+Yang Lingfeng requested Codex to implement all software in the specified Agent project folder. Codex implemented synthetic data generation, validated schemas, server-side simulated sessions, database-level ownership filtering, DeepSeek integration, budget accounting, separate L1/L2 evaluation, resumable schedules, analysis, tests, local Streamlit UI and reproduction documentation.
+
+Validation uses deterministic protocol/HTTP fixtures and real local Chroma/embedding execution. No real DeepSeek results or independent human approval are claimed. Human interpretation of future results and final contributions must be recorded from actual work.

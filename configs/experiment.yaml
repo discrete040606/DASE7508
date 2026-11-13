@@ -1,0 +1,17 @@
+model: deepseek-flash
+base_url: https://api.deepseek.com
+temperature: 0.2
+planning_tokens: 256
+answer_tokens: 512
+timeout_seconds: 60
+max_retries: 2
+top_k: 5
+repetitions: 5
+seed: 7508
+embedding: all-MiniLM-L6-v2
+budget_usd: 20.0
+input_usd_per_million: 0.30
+cached_input_usd_per_million: 0.006
+output_usd_per_million: 1.20
+pricing_checked: '2026-11-13'
+pricing_source: https://api-docs.deepseek.com/quick_start/pricing/

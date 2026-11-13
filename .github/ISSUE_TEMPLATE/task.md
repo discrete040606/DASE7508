@@ -1,6 +1,6 @@
 ---
 name: Project task
-about: A bounded change with a human owner, reviewer and checkable outcome
+about: A bounded change with a human owner and checkable outcome
 title: ""
 labels: ""
 assignees: ""
@@ -16,8 +16,8 @@ Constraints / dependencies:
 ## Owner and reviewer
 
 Owner: @USERNAME
-Independent teammate reviewer: @OTHER-USERNAME
-Confirm the reviewer's agreement before requesting review.
+Optional independent teammate reviewer: @OTHER-USERNAME
+Cross-review is not a merge gate under the team leader decision.
 
 ## Acceptance criteria
 

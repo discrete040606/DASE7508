@@ -16,7 +16,7 @@ Based on the DASE7508 GitHub Collaboration Manual. The actual project deadline a
 - [ ] README documents tested tools/versions, dependency installation, application run and one expected result.
 - [ ] Freeze code, dependencies, model/prompt/configuration, synthetic inputs and evaluation versions.
 - [ ] Retain code, configurations, inputs, trial logs, results and the commands needed to reproduce reported findings.
-- [ ] Keep at least one linked issue and an independently reviewed, merged PR.
+- [ ] Course manual asks for an independently reviewed, merged PR. The leader waived cross-review; do not mark this course evidence as satisfied by an unreviewed merge.
 - [ ] Describe AI assistance and each member's actual contribution.
 - [ ] Check that README status agrees with implemented functionality.
 
@@ -36,7 +36,7 @@ Subject: DASE7508 Repository Submission - [Team name or number]
 - TA access: Confirmed / Invitation pending / Not needed, as actually verified
 - README and reproduction instructions: https://github.com/discrete040606/DASE7508/blob/main/README.md
 - Example issue: https://github.com/discrete040606/DASE7508/issues/1
-- Reviewed and merged PR: pending; do not label an open PR as merged
+- Merged setup PR: https://github.com/discrete040606/DASE7508/pull/7 (independent review not performed)
 - Final assessment commit URL: pending; obtain from the final main history or `git rev-parse HEAD` after updating main
 
 ## Before sending

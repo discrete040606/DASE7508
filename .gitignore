@@ -231,3 +231,9 @@ chromadb/
 chroma_db/
 data/private/
 .DS_Store
+.bootstrap/
+.python/
+.runtime/
+.model-cache/
+results/offline/
+.streamlit/
