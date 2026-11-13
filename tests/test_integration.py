@@ -152,4 +152,4 @@ def test_summary_denominators_and_plot(tmp_path):
     assert summary.CURR_n == 2 and summary.CUDR_n == 1
     assert summary.CUDR_unknown == 2 and summary.CUDR_upper == pytest.approx(2 / 3)
     assert summary.errors == 1 and summary.complete == 1
-    assert (tmp_path / 'security.png').exists()
+    assert (tmp_path / 'analysis/security.png').exists()

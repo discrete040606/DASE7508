@@ -3,10 +3,11 @@ from pathlib import Path
 from streamlit.testing.v1 import AppTest
 
 
-def test_web_refresh_and_identity_reset(monkeypatch):
+def test_web_refresh_and_identity_reset(monkeypatch, tmp_path):
     from memory_lab.provider import MockProvider
+    from memory_lab.models import append_jsonl
     root = Path(__file__).resolve().parents[1]
-    if not (root / 'chroma_db/dataset.json').exists():
+    if not (root / '.local/chroma/dataset.json').exists():
         import pytest
         pytest.skip('Run memory-lab index for the UI integration test')
     calls = []
@@ -15,6 +16,10 @@ def test_web_refresh_and_identity_reset(monkeypatch):
         calls.append(1)
         return original(self, *args, **kwargs)
     monkeypatch.setattr(MockProvider, 'complete', counted)
+    def test_log(path, value):
+        append_jsonl(tmp_path / path.name, value)
+    monkeypatch.setattr('memory_lab.models.append_jsonl', test_log)
+    monkeypatch.setattr('memory_lab.agent.append_jsonl', test_log)
     app = AppTest.from_file(str(root / 'app/demo.py'), default_timeout=30).run()
     assert not app.exception
     submit = next(b for b in app.button if b.label == '提交查询')

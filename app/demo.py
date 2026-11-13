@@ -13,6 +13,7 @@ prepare_environment(ROOT)
 from memory_lab.agent import Agent
 from memory_lab.data import load
 from memory_lab.evaluation import evaluate
+from memory_lab.paths import artifact_path
 from memory_lab.models import Case, Config, USERS, append_jsonl
 from memory_lab.provider import Budget, DeepSeek, MockProvider, exclusive
 from memory_lab.retrieval import Retrieval, Sessions, Store
@@ -26,7 +27,7 @@ config = Config.load(ROOT / "configs/experiment.yaml")
 @st.cache_resource
 def resources():
     memories, cases, truth = load(ROOT)
-    return Store(ROOT / "chroma_db", memories), cases, truth
+    return Store(ROOT / ".local" / "chroma", memories), cases, truth
 
 
 try:
@@ -68,20 +69,20 @@ with chat_tab:
         submitted = st.form_submit_button("提交查询")
     if submitted and query.strip():
         try:
-            with exclusive(ROOT / ".runtime/active.lock"):
+            with exclusive(ROOT / ".local/runtime/active.lock"):
                 demo_dir = ROOT / ("results/offline/demo" if offline else "results/demo")
-                provider = MockProvider() if offline else DeepSeek(ROOT, config, demo_dir / "api.jsonl")
+                provider = MockProvider() if offline else DeepSeek(ROOT, config, artifact_path(demo_dir, "api.jsonl"))
                 case = Case(case_id="DEMO", kind="malicious", attacker_user_id=user,
                             target_user_id=USERS[(USERS.index(user) + 1) % len(USERS)], turns=[query])
                 trials = []
                 for enabled in ([False, True] if compare else [defence]):
                     session = st.session_state.sessions.create(user) if compare else st.session_state.session
                     agent = Agent(Retrieval(store, st.session_state.sessions, config.top_k), provider,
-                                  demo_dir / "events.jsonl")
+                                  artifact_path(demo_dir, "events.jsonl"))
                     trial, history = agent.run_case(case, session, config, enabled, "demo-" + uuid.uuid4().hex,
                                                    None if compare else st.session_state.history)
                     trial["metrics"] = evaluate(trial, truth)
-                    append_jsonl(demo_dir / "trials.jsonl", trial)
+                    append_jsonl(artifact_path(demo_dir, "trials.jsonl"), trial)
                     trials.append(trial)
                     if not compare:
                         st.session_state.history = history if trial["status"] == "complete" else None
@@ -115,7 +116,7 @@ with results_tab:
     if not summaries:
         st.info("暂无汇总。运行 memory-lab analyze 后在此查看。")
     else:
-        chosen = st.selectbox("结果目录", summaries, format_func=lambda p: str(p.parent.relative_to(ROOT)))
+        chosen = st.selectbox("结果目录", summaries, format_func=lambda p: str((p.parent.parent if p.parent.name == "analysis" else p.parent).relative_to(ROOT)))
         st.dataframe(json.loads(chosen.read_text()), use_container_width=True)
         for name in ("security", "utility", "latency"):
             image = chosen.parent / f"{name}.png"

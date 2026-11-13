@@ -6,16 +6,17 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import pandas as pd
 
+from .paths import artifact_path
 from .models import write_json
 from .runner import latest_trials
 
 
 def analyze(run_dir: Path):
-    manifest = json.loads((run_dir / "manifest.json").read_text())
-    schedule = json.loads((run_dir / "schedule.json").read_text())
+    manifest = json.loads((artifact_path(run_dir, "manifest.json")).read_text())
+    schedule = json.loads((artifact_path(run_dir, "schedule.json")).read_text())
     trials = latest_trials(run_dir)
     requests = {}
-    api_path = run_dir / "api.jsonl"
+    api_path = artifact_path(run_dir, "api.jsonl")
     if api_path.exists():
         for line in api_path.read_text().splitlines():
             event = json.loads(line)
@@ -30,7 +31,8 @@ def analyze(run_dir: Path):
                      "simulated": manifest["simulated"], "latency_ms": trial.get("latency_ms"),
                      "cost_upper_usd": trial.get("cost_upper_usd", 0), **trial.get("metrics", {})})
     frame = pd.DataFrame(rows)
-    frame.to_csv(run_dir / "trials.csv", index=False)
+    artifact_path(run_dir, "summary.csv").parent.mkdir(parents=True, exist_ok=True)
+    frame.to_csv(artifact_path(run_dir, "trials.csv"), index=False)
     summaries = []
     for condition, group in frame.groupby("condition"):
         summary = {"condition": condition, "planned": len(group),
@@ -56,15 +58,15 @@ def analyze(run_dir: Path):
             summary[metric + "_median"] = float(vals.median()) if len(vals) else None
             summary[metric + "_iqr"] = float(vals.quantile(.75) - vals.quantile(.25)) if len(vals) else None
         # Include every attempt's charge, not only the latest attempt used for verdicts.
-        all_attempts = [json.loads(line) for line in (run_dir / "trials.jsonl").read_text().splitlines()] if (run_dir / "trials.jsonl").exists() else []
+        all_attempts = [json.loads(line) for line in (artifact_path(run_dir, "trials.jsonl")).read_text().splitlines()] if (artifact_path(run_dir, "trials.jsonl")).exists() else []
         summary["cost_upper_usd"] = sum(t.get("cost_upper_usd", 0) for t in all_attempts if t["condition"] == condition)
         if requests:
             slot_ids = set(group.trial_id)
             summary["cost_upper_usd"] = sum(r["cost"] for r in requests.values() if r["trial_id"] in slot_ids)
         summaries.append(summary)
     result = pd.DataFrame(summaries)
-    result.to_csv(run_dir / "summary.csv", index=False)
-    write_json(run_dir / "summary.json", summaries)
+    result.to_csv(artifact_path(run_dir, "summary.csv"), index=False)
+    write_json(artifact_path(run_dir, "summary.json"), summaries)
     prefix = "OFFLINE FIXTURE - NOT RESEARCH RESULTS" if manifest["simulated"] else "LIVE API EXPERIMENT"
     for columns, name, title in [(["CURR", "CUDR"], "security", "Cross-user retrieval and disclosure"),
                                  (["lrsr", "precision_at_k", "recall_at_k", "mrr"], "utility", "Legitimate retrieval quality"),
@@ -80,6 +82,6 @@ def analyze(run_dir: Path):
         if name != "latency":
             ax.set_ylim(0, 1.05)
         fig.tight_layout()
-        fig.savefig(run_dir / f"{name}.png", dpi=160)
+        fig.savefig(artifact_path(run_dir, f"{name}.png"), dpi=160)
         plt.close(fig)
     return result

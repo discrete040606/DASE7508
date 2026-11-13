@@ -27,7 +27,7 @@ class Store:
         import chromadb
         from chromadb.utils.embedding_functions import DefaultEmbeddingFunction
         from chromadb.utils.embedding_functions.onnx_mini_lm_l6_v2 import ONNXMiniLM_L6_V2
-        ONNXMiniLM_L6_V2.DOWNLOAD_PATH = path.parent / ".model-cache" / "all-MiniLM-L6-v2"
+        ONNXMiniLM_L6_V2.DOWNLOAD_PATH = path.parent / "models" / "all-MiniLM-L6-v2"
         self.embedding = embedding or DefaultEmbeddingFunction()
         self.client = chromadb.PersistentClient(path=str(path))
         self.fingerprint = digest(memories)

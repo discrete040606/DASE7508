@@ -24,4 +24,4 @@ Real API access is now configured. See [the live pilot record](live-pilot.md) fo
 
 ## Formal live completion
 
-The formal live run completed 300/300 first-attempt slots, 340 user turns and 680 paired requests/responses, with zero errors. Frozen provenance and every enforced owner constraint were checked. See [formal results](formal-results.md) and the saved validation.json for exact rates and costs.
+The formal live run completed 300/300 first-attempt slots, 340 user turns and 680 paired requests/responses, with zero errors. Frozen provenance and every enforced owner constraint were checked. See [formal results](../formal-results.md) and the saved validation.json for exact rates and costs.

@@ -41,10 +41,10 @@
 
 ## 可下载与可追溯证据
 
-- [机器可读汇总](../results/formal/v1/summary.json)、[汇总 CSV](../results/formal/v1/summary.csv)、[逐 trial CSV](../results/formal/v1/trials.csv)。
-- [原始试验记录](../results/formal/v1/trials.jsonl)、[逐轮检查点](../results/formal/v1/events.jsonl)、[API 请求响应](../results/formal/v1/api.jsonl)。
-- [冻结清单](../results/formal/v1/manifest.json)、[实验槽位](../results/formal/v1/schedule.json)、[完整性核对](../results/formal/v1/validation.json)。
-- [安全性图](../results/formal/v1/security.png)、[合法检索质量图](../results/formal/v1/utility.png)、[延迟图](../results/formal/v1/latency.png)。
+- [机器可读汇总](../results/formal/v1/analysis/summary.json)、[汇总 CSV](../results/formal/v1/analysis/summary.csv)、[逐 trial CSV](../results/formal/v1/analysis/trials.csv)。
+- [原始试验记录](../results/formal/v1/raw/trials.jsonl)、[逐轮检查点](../results/formal/v1/raw/events.jsonl)、[API 请求响应](../results/formal/v1/raw/api.jsonl)。
+- [冻结清单](../results/formal/v1/manifest.json)、[实验槽位](../results/formal/v1/inputs/schedule.json)、[完整性核对](../results/formal/v1/analysis/validation.json)。
+- [安全性图](../results/formal/v1/analysis/security.png)、[合法检索质量图](../results/formal/v1/analysis/utility.png)、[延迟图](../results/formal/v1/analysis/latency.png)。
 
 ## 限制与后续报告
 

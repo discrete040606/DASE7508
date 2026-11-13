@@ -11,6 +11,7 @@ from pathlib import Path
 from .agent import Agent
 from .data import load
 from .evaluation import evaluate
+from .paths import artifact_path
 from .models import Config, SYSTEM_PROMPT, TOOLS, append_jsonl, digest, write_json
 from .provider import DeepSeek, MockProvider, exclusive
 from .retrieval import Retrieval, Sessions, Store
@@ -44,7 +45,7 @@ def manifest(root, config, memories, cases, truth, simulated, pilot):
                                 "pyproject.toml", "requirements.lock.txt", "src", "app", "configs", "data"], cwd=root,
                                 capture_output=True, text=True).stdout.strip())
     lock = root / "requirements.lock.txt"
-    model_cache = root / ".model-cache"
+    model_cache = root / ".local" / "models"
     embedding_files = {str(p.relative_to(model_cache)): __import__("hashlib").sha256(p.read_bytes()).hexdigest()
                        for p in sorted(model_cache.rglob('*')) if p.is_file()}
     return {"schema_version": 1, "simulated": simulated, "pilot": pilot, "config": config.model_dump(),
@@ -57,14 +58,14 @@ def manifest(root, config, memories, cases, truth, simulated, pilot):
 
 def latest_trials(run_dir):
     rows = {}
-    schedule_path = run_dir / "schedule.json"
+    schedule_path = artifact_path(run_dir, "schedule.json")
     schedule = {s["trial_id"]: s for s in json.loads(schedule_path.read_text())} if schedule_path.exists() else {}
-    truth_path = run_dir / "ground_truth.json"
+    truth_path = artifact_path(run_dir, "ground_truth.json")
     truth = json.loads(truth_path.read_text()) if truth_path.exists() else None
     # Replay checkpoints first, then final records. Highest attempt wins; observed
     # positives survive a retry so an interrupted leak cannot become a safe slot.
     for filename in ("events.jsonl", "trials.jsonl"):
-        path = run_dir / filename
+        path = artifact_path(run_dir, filename)
         if not path.exists():
             continue
         for line in path.read_text().splitlines():
@@ -94,27 +95,27 @@ def run(root: Path, config: Config, run_dir: Path, simulated=False, pilot=False,
         raise ValueError("Formal experiment requires five repetitions (300 slots)")
     memories, cases, truth = load(root)
     schedule = slots(cases, config, pilot)
-    with exclusive(root / ".runtime" / "active.lock"):
-        store = Store(root / "chroma_db", memories)
+    with exclusive(root / ".local" / "runtime" / "active.lock"):
+        store = Store(root / ".local" / "chroma", memories)
         frozen = manifest(root, config, memories, cases, truth, simulated, pilot)
         if not simulated and not pilot and frozen["working_tree_dirty"]:
             raise ValueError("Commit the experiment code/configuration/data before starting a formal run")
         run_dir.mkdir(parents=True, exist_ok=True)
-        manifest_path = run_dir / "manifest.json"
+        manifest_path = artifact_path(run_dir, "manifest.json")
         if manifest_path.exists() and json.loads(manifest_path.read_text()) != frozen:
             raise ValueError("Frozen configuration/data/code/environment changed; create a new run directory")
         write_json(manifest_path, frozen)
-        write_json(run_dir / "schedule.json", schedule)
-        write_json(run_dir / "ground_truth.json", truth)
-        write_json(run_dir / "memories.json", memories)
+        write_json(artifact_path(run_dir, "schedule.json"), schedule)
+        write_json(artifact_path(run_dir, "ground_truth.json"), truth)
+        write_json(artifact_path(run_dir, "memories.json"), memories)
         existing = latest_trials(run_dir)
-        provider = MockProvider() if simulated else DeepSeek(root, config, run_dir / "api.jsonl")
+        provider = MockProvider() if simulated else DeepSeek(root, config, artifact_path(run_dir, "api.jsonl"))
         previous_models = {r["response_model"] for r in existing.values() if r.get("response_model")}
         if len(previous_models) > 1:
             raise ValueError("Mixed response models in evidence")
         provider.response_model = next(iter(previous_models), provider.response_model)
         sessions = Sessions()
-        agent = Agent(Retrieval(store, sessions, config.top_k), provider, run_dir / "events.jsonl")
+        agent = Agent(Retrieval(store, sessions, config.top_k), provider, artifact_path(run_dir, "events.jsonl"))
         by_id = {c.case_id: c for c in cases}
         attempted = 0
         for slot in schedule:
@@ -129,7 +130,7 @@ def run(root: Path, config: Config, run_dir: Path, simulated=False, pilot=False,
                                       attempt=1 + (old or {}).get("attempt", 0))
             trial.update(slot, attempt=1 + (old or {}).get("attempt", 0))
             trial["metrics"] = evaluate(trial, truth)
-            append_jsonl(run_dir / "trials.jsonl", trial)
+            append_jsonl(artifact_path(run_dir, "trials.jsonl"), trial)
             print(f"{slot['trial_id']}: {trial['status']} L1={trial['metrics']['l1']} L2={trial['metrics']['l2']}", flush=True)
             attempted += 1
             if trial["status"] == "stopped":

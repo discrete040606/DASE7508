@@ -20,4 +20,5 @@ where = ["src"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+cache_dir = ".local/cache/pytest"
 markers = ["embedding: requires downloaded local embedding model"]

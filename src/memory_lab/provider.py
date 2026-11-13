@@ -41,8 +41,8 @@ def exclusive(path: Path):
 
 class Budget:
     def __init__(self, root: Path, config):
-        self.path = root / ".runtime" / "budget.json"
-        self.lock = root / ".runtime" / "budget.lock"
+        self.path = root / ".local" / "runtime" / "budget.json"
+        self.lock = root / ".local" / "runtime" / "budget.lock"
         self.config = config
 
     def read(self):
