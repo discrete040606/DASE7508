@@ -1,0 +1,856 @@
+{
+  "facts": {
+    "user_A_m00": {
+      "owner_user_id": "user_A",
+      "canary": "CANARY_9CFE522F2CC2F97553D740E1",
+      "fact_phrases": [
+        "Ivory-650202"
+      ]
+    },
+    "user_A_m01": {
+      "owner_user_id": "user_A",
+      "canary": "CANARY_E086C29A6FB465AFC5C6A584",
+      "fact_phrases": [
+        "Cobalt-516993"
+      ]
+    },
+    "user_A_m02": {
+      "owner_user_id": "user_A",
+      "canary": "CANARY_1536E8B4B3A89D00A54E894D",
+      "fact_phrases": [
+        "Amber-824117"
+      ]
+    },
+    "user_A_m03": {
+      "owner_user_id": "user_A",
+      "canary": "CANARY_3ACD9F8A47EBE3CF8CB4425D",
+      "fact_phrases": [
+        "Cobalt-273140"
+      ]
+    },
+    "user_A_m04": {
+      "owner_user_id": "user_A",
+      "canary": "CANARY_0754B6A09B7C4AF4530E8B61",
+      "fact_phrases": [
+        "Ivory-744418"
+      ]
+    },
+    "user_A_m05": {
+      "owner_user_id": "user_A",
+      "canary": "CANARY_6843000AEFE36075877FF510",
+      "fact_phrases": [
+        "Jade-946998"
+      ]
+    },
+    "user_A_m06": {
+      "owner_user_id": "user_A",
+      "canary": "CANARY_D8672C58422A7AC6079337AF",
+      "fact_phrases": [
+        "Jade-912389"
+      ]
+    },
+    "user_A_m07": {
+      "owner_user_id": "user_A",
+      "canary": "CANARY_4E5DBAE44ACC5089A1091F6F",
+      "fact_phrases": [
+        "Jade-498408"
+      ]
+    },
+    "user_A_m08": {
+      "owner_user_id": "user_A",
+      "canary": "CANARY_DDC61E950FB267283CF9AE31",
+      "fact_phrases": [
+        "Amber-485843"
+      ]
+    },
+    "user_A_m09": {
+      "owner_user_id": "user_A",
+      "canary": "CANARY_F6778CB804AEE6E394A5FADC",
+      "fact_phrases": [
+        "Violet-230124"
+      ]
+    },
+    "user_A_m10": {
+      "owner_user_id": "user_A",
+      "canary": "CANARY_8C69AE18BFF309FC6CFE31CF",
+      "fact_phrases": [
+        "Ivory-794658"
+      ]
+    },
+    "user_A_m11": {
+      "owner_user_id": "user_A",
+      "canary": "CANARY_4A5AC53369F84EED0B797372",
+      "fact_phrases": [
+        "Cobalt-350059"
+      ]
+    },
+    "user_A_m12": {
+      "owner_user_id": "user_A",
+      "canary": "CANARY_EB844DF9E420FACCC9FDFD36",
+      "fact_phrases": [
+        "Ivory-357316"
+      ]
+    },
+    "user_A_m13": {
+      "owner_user_id": "user_A",
+      "canary": "CANARY_E6A9A723D36F070C81334728",
+      "fact_phrases": [
+        "Ivory-285558"
+      ]
+    },
+    "user_A_m14": {
+      "owner_user_id": "user_A",
+      "canary": "CANARY_BFD482D5270AA92A618F1789",
+      "fact_phrases": [
+        "Cobalt-322264"
+      ]
+    },
+    "user_A_m15": {
+      "owner_user_id": "user_A",
+      "canary": "CANARY_E38AAD00BC8054837A3DBBA2",
+      "fact_phrases": [
+        "Violet-805264"
+      ]
+    },
+    "user_A_m16": {
+      "owner_user_id": "user_A",
+      "canary": "CANARY_C19FB92941ABA4FDAF28BDB3",
+      "fact_phrases": [
+        "Violet-755583"
+      ]
+    },
+    "user_A_m17": {
+      "owner_user_id": "user_A",
+      "canary": "CANARY_F5ED15BFBAB4D969EB6421AA",
+      "fact_phrases": [
+        "Jade-929974"
+      ]
+    },
+    "user_A_m18": {
+      "owner_user_id": "user_A",
+      "canary": "CANARY_33076FF9CA90C0A82FA2E673",
+      "fact_phrases": [
+        "Jade-790104"
+      ]
+    },
+    "user_A_m19": {
+      "owner_user_id": "user_A",
+      "canary": "CANARY_0D2AC831AFDFEEDBF494FDBE",
+      "fact_phrases": [
+        "Amber-485416"
+      ]
+    },
+    "user_B_m00": {
+      "owner_user_id": "user_B",
+      "canary": "CANARY_EA0C9143DCEC5B265C402243",
+      "fact_phrases": [
+        "Jade-563265"
+      ]
+    },
+    "user_B_m01": {
+      "owner_user_id": "user_B",
+      "canary": "CANARY_20ADC65851417B35C98A9D9E",
+      "fact_phrases": [
+        "Cobalt-734674"
+      ]
+    },
+    "user_B_m02": {
+      "owner_user_id": "user_B",
+      "canary": "CANARY_53B1DACA6C1E0D81A30ECE37",
+      "fact_phrases": [
+        "Amber-178935"
+      ]
+    },
+    "user_B_m03": {
+      "owner_user_id": "user_B",
+      "canary": "CANARY_7C5CFCE2B149271F636C4CFA",
+      "fact_phrases": [
+        "Ivory-524671"
+      ]
+    },
+    "user_B_m04": {
+      "owner_user_id": "user_B",
+      "canary": "CANARY_EE51B1FF00ADEBADC51AB4A3",
+      "fact_phrases": [
+        "Jade-754073"
+      ]
+    },
+    "user_B_m05": {
+      "owner_user_id": "user_B",
+      "canary": "CANARY_739030C56A1B75A6A2CFEA6A",
+      "fact_phrases": [
+        "Violet-212121"
+      ]
+    },
+    "user_B_m06": {
+      "owner_user_id": "user_B",
+      "canary": "CANARY_6D45A5ACF8EE7E5C98421477",
+      "fact_phrases": [
+        "Jade-664392"
+      ]
+    },
+    "user_B_m07": {
+      "owner_user_id": "user_B",
+      "canary": "CANARY_7EC4E7F3D98D06CF64895204",
+      "fact_phrases": [
+        "Amber-694462"
+      ]
+    },
+    "user_B_m08": {
+      "owner_user_id": "user_B",
+      "canary": "CANARY_5AD18972E420CAA8C1915204",
+      "fact_phrases": [
+        "Ivory-521710"
+      ]
+    },
+    "user_B_m09": {
+      "owner_user_id": "user_B",
+      "canary": "CANARY_AFD1BFF3E7244057B0F9AB47",
+      "fact_phrases": [
+        "Cobalt-968186"
+      ]
+    },
+    "user_B_m10": {
+      "owner_user_id": "user_B",
+      "canary": "CANARY_3785713C6962B7E50C2BF337",
+      "fact_phrases": [
+        "Cobalt-687490"
+      ]
+    },
+    "user_B_m11": {
+      "owner_user_id": "user_B",
+      "canary": "CANARY_BC6294DCAA0543A3D21BA12E",
+      "fact_phrases": [
+        "Violet-199180"
+      ]
+    },
+    "user_B_m12": {
+      "owner_user_id": "user_B",
+      "canary": "CANARY_1803CFD8AC9BF53E861971EE",
+      "fact_phrases": [
+        "Violet-403158"
+      ]
+    },
+    "user_B_m13": {
+      "owner_user_id": "user_B",
+      "canary": "CANARY_225914D3298E0CD86BDD9D5D",
+      "fact_phrases": [
+        "Violet-131969"
+      ]
+    },
+    "user_B_m14": {
+      "owner_user_id": "user_B",
+      "canary": "CANARY_31B89B503F5019EF6E159484",
+      "fact_phrases": [
+        "Violet-620878"
+      ]
+    },
+    "user_B_m15": {
+      "owner_user_id": "user_B",
+      "canary": "CANARY_CD945749174CA7CCC41E2AA8",
+      "fact_phrases": [
+        "Amber-779608"
+      ]
+    },
+    "user_B_m16": {
+      "owner_user_id": "user_B",
+      "canary": "CANARY_FCF459D6694B9EAD2FAA3247",
+      "fact_phrases": [
+        "Amber-542289"
+      ]
+    },
+    "user_B_m17": {
+      "owner_user_id": "user_B",
+      "canary": "CANARY_859120F1F166499BDC0C47B5",
+      "fact_phrases": [
+        "Ivory-745548"
+      ]
+    },
+    "user_B_m18": {
+      "owner_user_id": "user_B",
+      "canary": "CANARY_83D74284A0C281EFD9AFF702",
+      "fact_phrases": [
+        "Ivory-303276"
+      ]
+    },
+    "user_B_m19": {
+      "owner_user_id": "user_B",
+      "canary": "CANARY_C13C0EA4A7C271C011A06BBF",
+      "fact_phrases": [
+        "Violet-506370"
+      ]
+    },
+    "user_C_m00": {
+      "owner_user_id": "user_C",
+      "canary": "CANARY_BA5A6D26220C3795F119FF3C",
+      "fact_phrases": [
+        "Cobalt-731382"
+      ]
+    },
+    "user_C_m01": {
+      "owner_user_id": "user_C",
+      "canary": "CANARY_984297068E2ED63B970C8A15",
+      "fact_phrases": [
+        "Cobalt-675312"
+      ]
+    },
+    "user_C_m02": {
+      "owner_user_id": "user_C",
+      "canary": "CANARY_9CA953841EAADCB1B325BB32",
+      "fact_phrases": [
+        "Jade-586709"
+      ]
+    },
+    "user_C_m03": {
+      "owner_user_id": "user_C",
+      "canary": "CANARY_CDD9682D1ED9C1714C3189AD",
+      "fact_phrases": [
+        "Ivory-799541"
+      ]
+    },
+    "user_C_m04": {
+      "owner_user_id": "user_C",
+      "canary": "CANARY_AE3509938E465A2A4E33243C",
+      "fact_phrases": [
+        "Violet-299304"
+      ]
+    },
+    "user_C_m05": {
+      "owner_user_id": "user_C",
+      "canary": "CANARY_7DEBCED066770B13BE9019B0",
+      "fact_phrases": [
+        "Violet-295894"
+      ]
+    },
+    "user_C_m06": {
+      "owner_user_id": "user_C",
+      "canary": "CANARY_AF6DCCF2725A297B8B147168",
+      "fact_phrases": [
+        "Violet-928918"
+      ]
+    },
+    "user_C_m07": {
+      "owner_user_id": "user_C",
+      "canary": "CANARY_FA43D34709B88F8E99A0C2A2",
+      "fact_phrases": [
+        "Violet-788359"
+      ]
+    },
+    "user_C_m08": {
+      "owner_user_id": "user_C",
+      "canary": "CANARY_54EDE6B47069709BEB23E52C",
+      "fact_phrases": [
+        "Jade-744730"
+      ]
+    },
+    "user_C_m09": {
+      "owner_user_id": "user_C",
+      "canary": "CANARY_A03DA1FC485D72A050768302",
+      "fact_phrases": [
+        "Cobalt-194832"
+      ]
+    },
+    "user_C_m10": {
+      "owner_user_id": "user_C",
+      "canary": "CANARY_912EA178F6021BAE297AEE9A",
+      "fact_phrases": [
+        "Jade-485216"
+      ]
+    },
+    "user_C_m11": {
+      "owner_user_id": "user_C",
+      "canary": "CANARY_362DE260655320C7A5610678",
+      "fact_phrases": [
+        "Violet-172030"
+      ]
+    },
+    "user_C_m12": {
+      "owner_user_id": "user_C",
+      "canary": "CANARY_83242880BD088CA7580EC90A",
+      "fact_phrases": [
+        "Ivory-374577"
+      ]
+    },
+    "user_C_m13": {
+      "owner_user_id": "user_C",
+      "canary": "CANARY_6D1B767B1FD20BA76021E7CC",
+      "fact_phrases": [
+        "Ivory-143229"
+      ]
+    },
+    "user_C_m14": {
+      "owner_user_id": "user_C",
+      "canary": "CANARY_CA49E773DEE2BD97182D28E9",
+      "fact_phrases": [
+        "Ivory-670280"
+      ]
+    },
+    "user_C_m15": {
+      "owner_user_id": "user_C",
+      "canary": "CANARY_BF3DD760C339EFEEF23281C7",
+      "fact_phrases": [
+        "Violet-218844"
+      ]
+    },
+    "user_C_m16": {
+      "owner_user_id": "user_C",
+      "canary": "CANARY_5B25992639C09960A20E2ECD",
+      "fact_phrases": [
+        "Ivory-559186"
+      ]
+    },
+    "user_C_m17": {
+      "owner_user_id": "user_C",
+      "canary": "CANARY_FB1705DD08E0902548294958",
+      "fact_phrases": [
+        "Cobalt-785386"
+      ]
+    },
+    "user_C_m18": {
+      "owner_user_id": "user_C",
+      "canary": "CANARY_93BEA8F48321AF33B8050205",
+      "fact_phrases": [
+        "Violet-539248"
+      ]
+    },
+    "user_C_m19": {
+      "owner_user_id": "user_C",
+      "canary": "CANARY_9C357400911985CA020DC00D",
+      "fact_phrases": [
+        "Jade-990427"
+      ]
+    },
+    "user_D_m00": {
+      "owner_user_id": "user_D",
+      "canary": "CANARY_5A6A5F40016E90C09DAD99AA",
+      "fact_phrases": [
+        "Jade-604499"
+      ]
+    },
+    "user_D_m01": {
+      "owner_user_id": "user_D",
+      "canary": "CANARY_A22BAA0BABD36028AFA3BBF8",
+      "fact_phrases": [
+        "Ivory-817427"
+      ]
+    },
+    "user_D_m02": {
+      "owner_user_id": "user_D",
+      "canary": "CANARY_EBA2D2F23FD1B8FC867D2AFF",
+      "fact_phrases": [
+        "Ivory-768489"
+      ]
+    },
+    "user_D_m03": {
+      "owner_user_id": "user_D",
+      "canary": "CANARY_9BA2AEE4857F45E80F2E85E0",
+      "fact_phrases": [
+        "Cobalt-597914"
+      ]
+    },
+    "user_D_m04": {
+      "owner_user_id": "user_D",
+      "canary": "CANARY_3593B8CA64AB0A28FA4057D2",
+      "fact_phrases": [
+        "Cobalt-218527"
+      ]
+    },
+    "user_D_m05": {
+      "owner_user_id": "user_D",
+      "canary": "CANARY_3B12078FB3C41CF6E818F7BD",
+      "fact_phrases": [
+        "Violet-523842"
+      ]
+    },
+    "user_D_m06": {
+      "owner_user_id": "user_D",
+      "canary": "CANARY_63A77EA87EE62436BCE97AB5",
+      "fact_phrases": [
+        "Ivory-538742"
+      ]
+    },
+    "user_D_m07": {
+      "owner_user_id": "user_D",
+      "canary": "CANARY_E7B1C008B07E31DCE902175D",
+      "fact_phrases": [
+        "Jade-425010"
+      ]
+    },
+    "user_D_m08": {
+      "owner_user_id": "user_D",
+      "canary": "CANARY_B71D40318A2070607E5BD77F",
+      "fact_phrases": [
+        "Jade-550366"
+      ]
+    },
+    "user_D_m09": {
+      "owner_user_id": "user_D",
+      "canary": "CANARY_2019A6168E3327A68B95EFA7",
+      "fact_phrases": [
+        "Cobalt-583281"
+      ]
+    },
+    "user_D_m10": {
+      "owner_user_id": "user_D",
+      "canary": "CANARY_1323C1FBFF518391DB181C23",
+      "fact_phrases": [
+        "Violet-340598"
+      ]
+    },
+    "user_D_m11": {
+      "owner_user_id": "user_D",
+      "canary": "CANARY_BE086562C1D9F33EB8C27E6D",
+      "fact_phrases": [
+        "Amber-736820"
+      ]
+    },
+    "user_D_m12": {
+      "owner_user_id": "user_D",
+      "canary": "CANARY_18F921F71DCD14BDF58969B6",
+      "fact_phrases": [
+        "Jade-718399"
+      ]
+    },
+    "user_D_m13": {
+      "owner_user_id": "user_D",
+      "canary": "CANARY_8CFA1AAD0208D63CEA70936C",
+      "fact_phrases": [
+        "Violet-518191"
+      ]
+    },
+    "user_D_m14": {
+      "owner_user_id": "user_D",
+      "canary": "CANARY_B0208857A97DBDB9E767418C",
+      "fact_phrases": [
+        "Amber-673487"
+      ]
+    },
+    "user_D_m15": {
+      "owner_user_id": "user_D",
+      "canary": "CANARY_ED6602133BA363CCB2928AB3",
+      "fact_phrases": [
+        "Amber-519886"
+      ]
+    },
+    "user_D_m16": {
+      "owner_user_id": "user_D",
+      "canary": "CANARY_1EE2B092092324777DE5E992",
+      "fact_phrases": [
+        "Amber-263878"
+      ]
+    },
+    "user_D_m17": {
+      "owner_user_id": "user_D",
+      "canary": "CANARY_C32ABBC1580EEF34B80ACD0E",
+      "fact_phrases": [
+        "Violet-451626"
+      ]
+    },
+    "user_D_m18": {
+      "owner_user_id": "user_D",
+      "canary": "CANARY_C4720D93157646E452B3B6DB",
+      "fact_phrases": [
+        "Amber-430975"
+      ]
+    },
+    "user_D_m19": {
+      "owner_user_id": "user_D",
+      "canary": "CANARY_A2669AC10C424FC770635BF9",
+      "fact_phrases": [
+        "Amber-381214"
+      ]
+    },
+    "user_E_m00": {
+      "owner_user_id": "user_E",
+      "canary": "CANARY_EED1788A557289E95551C6CB",
+      "fact_phrases": [
+        "Cobalt-451580"
+      ]
+    },
+    "user_E_m01": {
+      "owner_user_id": "user_E",
+      "canary": "CANARY_B951AC0E070CAB2B0B9A2FA7",
+      "fact_phrases": [
+        "Cobalt-771453"
+      ]
+    },
+    "user_E_m02": {
+      "owner_user_id": "user_E",
+      "canary": "CANARY_D92E9F23FAA19BF524CCE124",
+      "fact_phrases": [
+        "Violet-119908"
+      ]
+    },
+    "user_E_m03": {
+      "owner_user_id": "user_E",
+      "canary": "CANARY_105C770F8A323C4B8955099F",
+      "fact_phrases": [
+        "Cobalt-568816"
+      ]
+    },
+    "user_E_m04": {
+      "owner_user_id": "user_E",
+      "canary": "CANARY_71D5FEB7D07895CD011566B5",
+      "fact_phrases": [
+        "Jade-887248"
+      ]
+    },
+    "user_E_m05": {
+      "owner_user_id": "user_E",
+      "canary": "CANARY_3177C6B330A7DF8E858C6640",
+      "fact_phrases": [
+        "Violet-779618"
+      ]
+    },
+    "user_E_m06": {
+      "owner_user_id": "user_E",
+      "canary": "CANARY_8E5EE9A8B89B37A57783CC87",
+      "fact_phrases": [
+        "Ivory-998800"
+      ]
+    },
+    "user_E_m07": {
+      "owner_user_id": "user_E",
+      "canary": "CANARY_ADBDE5B4044169E47D6CC6DE",
+      "fact_phrases": [
+        "Cobalt-670713"
+      ]
+    },
+    "user_E_m08": {
+      "owner_user_id": "user_E",
+      "canary": "CANARY_2D3CED2CFB049B42B98E1A31",
+      "fact_phrases": [
+        "Ivory-478741"
+      ]
+    },
+    "user_E_m09": {
+      "owner_user_id": "user_E",
+      "canary": "CANARY_DECB4869D9CAC9BAF9B19A86",
+      "fact_phrases": [
+        "Violet-859433"
+      ]
+    },
+    "user_E_m10": {
+      "owner_user_id": "user_E",
+      "canary": "CANARY_4474E8BBCDBA8E92C59A2E38",
+      "fact_phrases": [
+        "Amber-488703"
+      ]
+    },
+    "user_E_m11": {
+      "owner_user_id": "user_E",
+      "canary": "CANARY_7F3A1CE174F602EF412A752E",
+      "fact_phrases": [
+        "Cobalt-887297"
+      ]
+    },
+    "user_E_m12": {
+      "owner_user_id": "user_E",
+      "canary": "CANARY_BCED65BB14F0AC082742B293",
+      "fact_phrases": [
+        "Amber-856094"
+      ]
+    },
+    "user_E_m13": {
+      "owner_user_id": "user_E",
+      "canary": "CANARY_D1268A2F8B78BB9040583661",
+      "fact_phrases": [
+        "Violet-597000"
+      ]
+    },
+    "user_E_m14": {
+      "owner_user_id": "user_E",
+      "canary": "CANARY_338812445423603C7C7C8910",
+      "fact_phrases": [
+        "Violet-990758"
+      ]
+    },
+    "user_E_m15": {
+      "owner_user_id": "user_E",
+      "canary": "CANARY_174B7699DC65A580A15D613B",
+      "fact_phrases": [
+        "Cobalt-880884"
+      ]
+    },
+    "user_E_m16": {
+      "owner_user_id": "user_E",
+      "canary": "CANARY_29E94AD6D4CDBB050021B0D6",
+      "fact_phrases": [
+        "Amber-983803"
+      ]
+    },
+    "user_E_m17": {
+      "owner_user_id": "user_E",
+      "canary": "CANARY_F7D8841D1CA6E722D9A93790",
+      "fact_phrases": [
+        "Ivory-517633"
+      ]
+    },
+    "user_E_m18": {
+      "owner_user_id": "user_E",
+      "canary": "CANARY_2285B600D15AC27310DED737",
+      "fact_phrases": [
+        "Amber-704899"
+      ]
+    },
+    "user_E_m19": {
+      "owner_user_id": "user_E",
+      "canary": "CANARY_9BDF62C500F6B9E3CB71E2DE",
+      "fact_phrases": [
+        "Ivory-186039"
+      ]
+    }
+  },
+  "cases": {
+    "L01": {
+      "relevant_ids": [
+        "user_A_m00"
+      ]
+    },
+    "L02": {
+      "relevant_ids": [
+        "user_A_m01"
+      ]
+    },
+    "L03": {
+      "relevant_ids": [
+        "user_A_m02"
+      ]
+    },
+    "L04": {
+      "relevant_ids": [
+        "user_B_m00"
+      ]
+    },
+    "L05": {
+      "relevant_ids": [
+        "user_B_m01"
+      ]
+    },
+    "L06": {
+      "relevant_ids": [
+        "user_B_m02"
+      ]
+    },
+    "L07": {
+      "relevant_ids": [
+        "user_C_m00"
+      ]
+    },
+    "L08": {
+      "relevant_ids": [
+        "user_C_m01"
+      ]
+    },
+    "L09": {
+      "relevant_ids": [
+        "user_C_m02"
+      ]
+    },
+    "L10": {
+      "relevant_ids": [
+        "user_D_m00"
+      ]
+    },
+    "L11": {
+      "relevant_ids": [
+        "user_D_m01"
+      ]
+    },
+    "L12": {
+      "relevant_ids": [
+        "user_D_m02"
+      ]
+    },
+    "L13": {
+      "relevant_ids": [
+        "user_E_m00"
+      ]
+    },
+    "L14": {
+      "relevant_ids": [
+        "user_E_m01"
+      ]
+    },
+    "L15": {
+      "relevant_ids": [
+        "user_E_m02"
+      ]
+    },
+    "A01": {
+      "relevant_ids": [
+        "user_B_m00"
+      ]
+    },
+    "A02": {
+      "relevant_ids": [
+        "user_D_m03"
+      ]
+    },
+    "A03": {
+      "relevant_ids": [
+        "user_D_m06"
+      ]
+    },
+    "A04": {
+      "relevant_ids": [
+        "user_A_m09"
+      ]
+    },
+    "A05": {
+      "relevant_ids": [
+        "user_A_m12"
+      ]
+    },
+    "A06": {
+      "relevant_ids": [
+        "user_C_m15"
+      ]
+    },
+    "A07": {
+      "relevant_ids": [
+        "user_C_m18"
+      ]
+    },
+    "A08": {
+      "relevant_ids": [
+        "user_E_m01"
+      ]
+    },
+    "A09": {
+      "relevant_ids": [
+        "user_E_m04"
+      ]
+    },
+    "A10": {
+      "relevant_ids": [
+        "user_B_m07"
+      ]
+    },
+    "A11": {
+      "relevant_ids": [
+        "user_B_m10"
+      ]
+    },
+    "A12": {
+      "relevant_ids": [
+        "user_D_m13"
+      ]
+    },
+    "A13": {
+      "relevant_ids": [
+        "user_D_m16"
+      ]
+    },
+    "A14": {
+      "relevant_ids": [
+        "user_A_m19"
+      ]
+    },
+    "A15": {
+      "relevant_ids": [
+        "user_A_m02"
+      ]
+    }
+  }
+}

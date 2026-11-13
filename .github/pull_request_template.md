@@ -19,7 +19,7 @@ Tool and tasks it helped with; identify generated code, documentation or analysi
 ## Human verification
 
 Owner: pending
-Independent teammate reviewer: pending
+Independent teammate reviewer: optional under the leader decision; record only if performed
 Who checked what, commands and observed results: pending
 
 ## Before merge
@@ -27,5 +27,5 @@ Who checked what, commands and observed results: pending
 - [ ] Changes meet the linked issue's acceptance criteria.
 - [ ] Expected and invalid cases were checked where applicable.
 - [ ] No credentials, student IDs or real private data are committed.
-- [ ] A different teammate reviewed the latest changes and recorded evidence.
+- [ ] Necessary checks passed; state whether optional teammate review was actually performed.
 - [ ] Blocking feedback is resolved; required checks passed.

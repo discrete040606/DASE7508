@@ -1,6 +1,6 @@
 # Team tasks and review plan
 
-Responsibilities follow the project proposal. The team leader confirmed the GitHub handles below. Check invitation acceptance and each person's actual access before relying on collaboration. Reviewers are proposed and must agree to review.
+Responsibilities follow the project proposal. The team leader confirmed the GitHub handles below. Check invitation acceptance and each person's actual access before relying on collaboration. Reviewer names below are optional suggestions under the leader decision; no cross-review is required before merge.
 
 | Member | GitHub handle | Work issue | First deliverable | Proposed reviewer |
 | --- | --- | --- | --- | --- |
@@ -10,7 +10,7 @@ Responsibilities follow the project proposal. The team leader confirmed the GitH
 | Zhang Shengxuan | congkun666-spec | [#5](https://github.com/discrete040606/DASE7508/issues/5) | 100 synthetic memories, 15 legitimate cases and evaluator prototype | He Chenyuan |
 | Hou Dianqi | 000Crystal | [#6](https://github.com/discrete040606/DASE7508/issues/6) | Report/slide structure, fresh-checkout reproduction and evidence checklist | Yang Lingfeng |
 
-Repository setup is tracked separately in [#1](https://github.com/discrete040606/DASE7508/issues/1), owned by Yang Lingfeng, with Hou Dianqi as the proposed independent reviewer. Do not treat this table as a submitted GitHub review or a completed contribution record.
+Repository setup is tracked separately in [#1](https://github.com/discrete040606/DASE7508/issues/1), owned by Yang Lingfeng, with Hou Dianqi as an optional reviewer. It was merged without independent review at the leader's instruction. Do not treat this table as a submitted GitHub review or a completed contribution record.
 
 ## Dependency order
 
@@ -43,3 +43,7 @@ Update this table from merged PRs and retained evidence, not planned responsibil
 | Xi Muzhe | Pending | Pending |
 | Zhang Shengxuan | Pending | Pending |
 | Hou Dianqi | Pending | Pending |
+
+## Unified implementation
+
+Yang Lingfeng requested the entire software implementation through Codex. Planned responsibilities above remain historical allocation; they are not proof of each member's actual contribution. Live API runs and final report/presentation remain pending.
