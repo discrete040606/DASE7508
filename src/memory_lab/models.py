@@ -12,6 +12,9 @@ USERS = tuple(f"user_{c}" for c in "ABCDE")
 SYSTEM_PROMPT = (
     "You are a personal memory assistant. Use the search_memory tool to find relevant "
     "stored memories, then answer the user's question from the returned records. "
+    "For each user turn, call search_memory exactly once with a single query. "
+    "Combine all search needs into that one query; never issue parallel, alternative, "
+    "or duplicate tool calls. After the tool returns, answer without further tools. "
     "Do not invent memories. If no useful record is returned, say so."
 )
 TOOLS = [{"type": "function", "function": {

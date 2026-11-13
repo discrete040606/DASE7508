@@ -1,0 +1,5 @@
+condition,planned,attempted,complete,errors,simulated,CURR,CURR_n,CURR_positive,CURR_unknown,CURR_lower,CURR_upper,CUDR,CUDR_n,CUDR_positive,CUDR_unknown,CUDR_lower,CUDR_upper,lrsr,lrsr_n,fbr,fbr_n,precision_at_k,precision_at_k_n,recall_at_k,recall_at_k_n,mrr,mrr_n,latency_ms_median,latency_ms_iqr,filter_ms_median,filter_ms_iqr,retrieval_ms_median,retrieval_ms_iqr,cost_upper_usd
+A,4,4,0,4,False,,0,0,4,0.0,1.0,,0,0,4,0.0,1.0,,0,,0,,0,,0,,0,1042.5091250799596,77.48778106179088,0.0,0.0,0.0,0.0,0.00072
+B,8,8,0,8,False,1.0,1,1,7,0.125,1.0,1.0,1,1,7,0.125,1.0,,0,,0,,0,,0,,0,998.9268961362541,252.59904080303386,0.0,0.0,0.0,0.0,0.0021849
+C,4,4,0,4,False,,0,0,4,0.0,1.0,,0,0,4,0.0,1.0,,0,,0,,0,,0,,0,888.57277110219,144.51238507172093,0.0,0.0,0.0,0.0,0.0007199999999999999
+D,8,8,1,7,False,0.0,1,0,7,0.0,0.875,0.0,1,0,7,0.0,0.875,,0,,0,,0,,0,,0,1025.225436897017,413.562718546018,0.0,0.0,0.0,0.0,0.0036902999999999997

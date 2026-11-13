@@ -119,6 +119,33 @@ def test_malformed_tool_args_cannot_authorize(data):
     assert trial['status'] == 'error' and not store.calls
 
 
+def test_parallel_calls_are_rejected_before_any_retrieval(data):
+    import copy
+    class Parallel(MockProvider):
+        def complete(self, messages, planning):
+            result = super().complete(messages, planning)
+            if planning:
+                calls = result['choices'][0]['message']['tool_calls']
+                duplicate = copy.deepcopy(calls[0])
+                duplicate['id'] = 'second_call'
+                calls.append(duplicate)
+            return result
+    agent, sessions, store, cases, truth = setup_agent(data, Parallel())
+    trial, _ = agent.run_case(cases[0], sessions.create('user_A'), Config(), True)
+    assert trial['status'] == 'error' and not store.calls
+    assert len(trial['turns'][0]['tool_calls']) == 2
+    assert evaluate(trial, truth)['l1'] is None
+
+
+def test_local_key_file_and_environment_precedence(tmp_path, monkeypatch):
+    from memory_lab.provider import load_api_key
+    monkeypatch.delenv('DEEPSEEK_API_KEY', raising=False)
+    (tmp_path / '.env').write_text('DEEPSEEK_API_KEY="local-test-${UNCHANGED}"\n')
+    assert load_api_key(tmp_path) == 'local-test-${UNCHANGED}'
+    monkeypatch.setenv('DEEPSEEK_API_KEY', 'environment-test')
+    assert load_api_key(tmp_path) == 'environment-test'
+
+
 def test_multi_turn_early_disclosure(data):
     agent, sessions, _, cases, gt = setup_agent(data)
     case = next(c for c in cases if c.family == 'M7')
