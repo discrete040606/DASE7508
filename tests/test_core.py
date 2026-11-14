@@ -202,3 +202,15 @@ def test_missing_key_is_explicit(tmp_path, monkeypatch):
     monkeypatch.delenv('DEEPSEEK_API_KEY', raising=False)
     with pytest.raises(ValueError, match='DEEPSEEK_API_KEY'):
         DeepSeek(tmp_path, Config(), tmp_path / 'api.jsonl')
+
+
+def test_jsonl_missing_unicode_and_invalid_records(tmp_path):
+    from memory_lab.models import read_jsonl
+    path = tmp_path / 'journal.jsonl'
+    assert list(read_jsonl(path)) == []
+    record = {'answer': 'first\u2028second', 'completed': True}
+    path.write_text(json.dumps(record, ensure_ascii=False) + '\n')
+    assert list(read_jsonl(path)) == [record]
+    path.write_text('{broken json}\n')
+    with pytest.raises(json.JSONDecodeError):
+        list(read_jsonl(path))

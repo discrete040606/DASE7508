@@ -22,7 +22,7 @@ Based on the DASE7508 GitHub Collaboration Manual. The actual project deadline a
 
 ## Submission email preparation
 
-Sending an email and inviting the TA are separate actions. Creating the repository or sending an invitation alone is not submission. The following is a checklist/template; it does not indicate an email was sent.
+After access is confirmed, send the repository link by email. The fields below are an email template, not a sent-submission record.
 
 To: tianyufei.zhou@connect.hku.hk
 Subject: DASE7508 Repository Submission - [Team name or number]
@@ -47,4 +47,4 @@ Subject: DASE7508 Repository Submission - [Team name or number]
 - [ ] Complete Moodle requirements and confirm the deadline.
 - [ ] Send the email and retain a copy; state honestly if TA access is still pending.
 
-No submission has been sent by preparing this checklist.
+Keep a copy of the sent email with the final assessment commit.

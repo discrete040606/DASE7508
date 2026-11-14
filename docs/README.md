@@ -23,4 +23,4 @@
 - [提交检查表](submission/submission-checklist.md)
 - [报告和演示提纲](submission/report-outline.md)
 
-历史试跑和正式运行的 manifest 保持原始内容，引用的是当时的源代码版本。当前路径调整不改变原有实验结论；复现历史代码可使用 manifest 中记录的 Git 提交。读取旧的平铺日志仍然受支持。
+历史运行的 manifest 记录了当时的代码版本和配置。复现时使用其中的 Git 提交；当前程序也支持读取旧平铺目录。

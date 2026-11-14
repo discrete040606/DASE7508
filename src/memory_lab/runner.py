@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib.metadata
+import hashlib
 import json
 import platform
 import random
@@ -12,7 +13,7 @@ from .agent import Agent
 from .data import load
 from .evaluation import evaluate
 from .paths import artifact_path
-from .models import Config, SYSTEM_PROMPT, TOOLS, append_jsonl, digest, write_json
+from .models import Config, SYSTEM_PROMPT, TOOLS, append_jsonl, digest, read_jsonl, write_json
 from .provider import DeepSeek, MockProvider, exclusive
 from .retrieval import Retrieval, Sessions, Store
 
@@ -46,7 +47,7 @@ def manifest(root, config, memories, cases, truth, simulated, pilot):
                                 capture_output=True, text=True).stdout.strip())
     lock = root / "requirements.lock.txt"
     model_cache = root / ".local" / "models"
-    embedding_files = {str(p.relative_to(model_cache)): __import__("hashlib").sha256(p.read_bytes()).hexdigest()
+    embedding_files = {str(p.relative_to(model_cache)): hashlib.sha256(p.read_bytes()).hexdigest()
                        for p in sorted(model_cache.rglob('*')) if p.is_file()}
     return {"schema_version": 1, "simulated": simulated, "pilot": pilot, "config": config.model_dump(),
             "memories_sha256": digest(memories), "cases_sha256": digest([c.model_dump() for c in cases]),
@@ -57,33 +58,29 @@ def manifest(root, config, memories, cases, truth, simulated, pilot):
 
 
 def latest_trials(run_dir):
-    rows = {}
+    trials = {}
     schedule_path = artifact_path(run_dir, "schedule.json")
-    schedule = {s["trial_id"]: s for s in json.loads(schedule_path.read_text())} if schedule_path.exists() else {}
+    slots_by_id = {s["trial_id"]: s for s in json.loads(schedule_path.read_text())} if schedule_path.exists() else {}
     truth_path = artifact_path(run_dir, "ground_truth.json")
     truth = json.loads(truth_path.read_text()) if truth_path.exists() else None
-    # Replay checkpoints first, then final records. Highest attempt wins; observed
-    # positives survive a retry so an interrupted leak cannot become a safe slot.
+    # A retry must not erase a disclosure already recorded for the same slot.
     for filename in ("events.jsonl", "trials.jsonl"):
         path = artifact_path(run_dir, filename)
-        if not path.exists():
-            continue
-        for line in path.read_text().splitlines():
-            record = json.loads(line)
-            row = record.get("trial", record)
-            if "trial_id" not in row:
+        for record in read_jsonl(path):
+            trial = record.get("trial", record)
+            if "trial_id" not in trial:
                 continue
-            row.update(schedule.get(row["trial_id"], {}))
+            trial.update(slots_by_id.get(trial["trial_id"], {}))
             if truth:
-                row["metrics"] = evaluate(row, truth)
-            old = rows.get(row["trial_id"])
-            chosen = row if old is None or row.get("attempt", 1) >= old.get("attempt", 1) else old
-            if old:
+                trial["metrics"] = evaluate(trial, truth)
+            previous = trials.get(trial["trial_id"])
+            current = trial if previous is None or trial.get("attempt", 1) >= previous.get("attempt", 1) else previous
+            if previous:
                 for key in ("l1", "l2"):
-                    if old.get("metrics", {}).get(key) is True or row.get("metrics", {}).get(key) is True:
-                        chosen["metrics"][key] = True
-            rows[row["trial_id"]] = chosen
-    return rows
+                    if previous.get("metrics", {}).get(key) is True or trial.get("metrics", {}).get(key) is True:
+                        current["metrics"][key] = True
+            trials[trial["trial_id"]] = current
+    return trials
 
 
 def run(root: Path, config: Config, run_dir: Path, simulated=False, pilot=False, limit=None):
@@ -125,10 +122,11 @@ def run(root: Path, config: Config, run_dir: Path, simulated=False, pilot=False,
             if limit is not None and attempted >= limit:
                 break
             case = by_id[slot["case_id"]]
+            attempt = (old or {}).get("attempt", 0) + 1
             trial, _ = agent.run_case(case, sessions.create(case.attacker_user_id), config,
                                       slot["condition"] in ("C", "D"), slot["trial_id"],
-                                      attempt=1 + (old or {}).get("attempt", 0))
-            trial.update(slot, attempt=1 + (old or {}).get("attempt", 0))
+                                      attempt=attempt)
+            trial.update(slot)
             trial["metrics"] = evaluate(trial, truth)
             append_jsonl(artifact_path(run_dir, "trials.jsonl"), trial)
             print(f"{slot['trial_id']}: {trial['status']} L1={trial['metrics']['l1']} L2={trial['metrics']['l2']}", flush=True)

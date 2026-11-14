@@ -153,3 +153,25 @@ def test_summary_denominators_and_plot(tmp_path):
     assert summary.CUDR_unknown == 2 and summary.CUDR_upper == pytest.approx(2 / 3)
     assert summary.errors == 1 and summary.complete == 1
     assert (tmp_path / 'analysis/security.png').exists()
+
+
+def test_analysis_reads_cost_journal_once_for_all_conditions(tmp_path, monkeypatch):
+    from collections import Counter
+    import memory_lab.analysis as analysis
+    from memory_lab.models import append_jsonl
+    from memory_lab.paths import artifact_path
+    write_json(tmp_path / 'manifest.json', {'simulated': True})
+    schedule = [{'trial_id': c, 'case_id': c, 'condition': c, 'repetition': 1} for c in 'ABCD']
+    write_json(tmp_path / 'schedule.json', schedule)
+    for slot in schedule:
+        append_jsonl(tmp_path / 'trials.jsonl', {**slot, 'status': 'complete',
+                     'metrics': {'l1': False, 'l2': False}, 'cost_upper_usd': .1})
+    reads = Counter()
+    original = analysis.read_jsonl
+    def counted(path):
+        reads[path] += 1
+        return original(path)
+    monkeypatch.setattr(analysis, 'read_jsonl', counted)
+    summary = analysis.analyze(tmp_path)
+    assert summary.cost_upper_usd.sum() == pytest.approx(.4)
+    assert reads[artifact_path(tmp_path, 'trials.jsonl')] == 1
