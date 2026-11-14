@@ -2,6 +2,9 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
+import tempfile
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Literal
 
@@ -95,8 +98,6 @@ def digest(value) -> str:
 
 
 def write_json(path: Path, value):
-    import os
-    import tempfile
     path.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.NamedTemporaryFile(mode="w", dir=path.parent, delete=False) as f:
         f.write(json.dumps(value, indent=2, ensure_ascii=False) + "\n")
@@ -106,11 +107,18 @@ def write_json(path: Path, value):
 
 
 def append_jsonl(path: Path, value):
-    import os
-    from datetime import datetime, timezone
     value = {"logged_at_utc": datetime.now(timezone.utc).isoformat(), **value}
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("a") as f:
         f.write(json.dumps(value, ensure_ascii=False) + "\n")
         f.flush()
         os.fsync(f.fileno())
+
+
+def read_jsonl(path: Path):
+    """Read complete JSONL records; a missing journal has no entries."""
+    if not path.exists():
+        return
+    with path.open() as stream:
+        for line in stream:
+            yield json.loads(line)

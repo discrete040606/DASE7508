@@ -1,6 +1,6 @@
 # Collaboration and verification
 
-The team leader decided on 2026-11-13 that changes may merge to main after the relevant checks pass, without waiting for independent cross-review. Preserve issues, branches, PRs, exact checks, limitations and AI-assistance records. Do not claim an independent review happened when it did not. This differs from the course manual; retain that distinction in submission evidence.
+On 2026-11-13, the team leader chose to merge checked changes without waiting for independent cross-review. Keep the issue, PR, commands and observed outcomes. The course manual asks for teammate review, so the submission record must distinguish this workflow from that requirement.
 
 1. Open a bounded issue with acceptance criteria and a human owner.
 2. Implement on a branch, inspect the diff, and run relevant tests including invalid-input and trust-boundary cases.

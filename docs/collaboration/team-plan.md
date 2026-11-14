@@ -1,6 +1,6 @@
 # Team tasks and review plan
 
-Responsibilities follow the project proposal. The team leader confirmed the GitHub handles below. Check invitation acceptance and each person's actual access before relying on collaboration. Reviewer names below are optional suggestions under the leader decision; no cross-review is required before merge.
+The table preserves the proposal’s original allocation and the GitHub handles confirmed by the team leader. Reviewer names are suggestions; the current merge process is described in [CONTRIBUTING.md](../../CONTRIBUTING.md). Actual contributions are recorded separately below.
 
 | Member | GitHub handle | Work issue | First deliverable | Proposed reviewer |
 | --- | --- | --- | --- | --- |
@@ -10,15 +10,11 @@ Responsibilities follow the project proposal. The team leader confirmed the GitH
 | Zhang Shengxuan | congkun666-spec | [#5](https://github.com/discrete040606/DASE7508/issues/5) | 100 synthetic memories, 15 legitimate cases and evaluator prototype | He Chenyuan |
 | Hou Dianqi | 000Crystal | [#6](https://github.com/discrete040606/DASE7508/issues/6) | Report/slide structure, fresh-checkout reproduction and evidence checklist | Yang Lingfeng |
 
-Repository setup is tracked separately in [#1](https://github.com/discrete040606/DASE7508/issues/1), owned by Yang Lingfeng, with Hou Dianqi as an optional reviewer. It was merged without independent review at the leader's instruction. Do not treat this table as a submitted GitHub review or a completed contribution record.
+Repository setup is recorded in [#1](https://github.com/discrete040606/DASE7508/issues/1). The table describes planned tasks, not completed individual contributions.
 
-## Dependency order
+## Remaining course work
 
-1. Yang Lingfeng proposes memory/session/query/retrieval/log schemas; Xi Muzhe and Zhang Shengxuan agree the integration points.
-2. He Chenyuan and Zhang Shengxuan align attack queries with synthetic target records, keeping secrets out of attack inputs.
-3. Integrate a small pilot with filter off/on and separate retrieval/disclosure observations.
-4. Freeze the dataset, cases, prompts, model IDs, top_k and reset rules; then run the 300-trial plan.
-5. Each owner supplies verified methods and evidence for their own report section. Hou Dianqi coordinates consistency and reproduction.
+The implementation and real experiment are complete. Each member should now review the section corresponding to their assigned topic and supply checked material for the final report. Hou Dianqi coordinates the report and presentation; Yang Lingfeng integrates the submission. Confirm the actual deadline and format on Moodle.
 
 ## Milestones from the proposal
 
@@ -46,4 +42,4 @@ Update this table from merged PRs and retained evidence, not planned responsibil
 
 ## Unified implementation
 
-Yang Lingfeng requested the entire software implementation through Codex. Planned responsibilities above remain historical allocation; they are not proof of each member's actual contribution. Live API runs and final report/presentation remain pending.
+Yang Lingfeng requested the software implementation and real API runs through Codex. The formal run is complete; [the result summary](../formal-results.md) links its evidence. The final course report and presentation remain to be prepared.

@@ -7,23 +7,23 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 from .paths import artifact_path
-from .models import write_json
+from .models import read_jsonl, write_json
 from .runner import latest_trials
 
 
 def analyze(run_dir: Path):
-    manifest = json.loads((artifact_path(run_dir, "manifest.json")).read_text())
-    schedule = json.loads((artifact_path(run_dir, "schedule.json")).read_text())
+    manifest = json.loads(artifact_path(run_dir, "manifest.json").read_text())
+    schedule = json.loads(artifact_path(run_dir, "schedule.json").read_text())
     trials = latest_trials(run_dir)
     requests = {}
     api_path = artifact_path(run_dir, "api.jsonl")
-    if api_path.exists():
-        for line in api_path.read_text().splitlines():
-            event = json.loads(line)
-            if event.get("event") == "request":
-                requests[event["request_id"]] = {"trial_id": event.get("trial_id"), "cost": event["reserved_usd"]}
-            elif event.get("event") in ("response", "request_error") and event["request_id"] in requests:
-                requests[event["request_id"]]["cost"] = event["cost_upper_usd"]
+    for event in read_jsonl(api_path):
+        if event.get("event") == "request":
+            requests[event["request_id"]] = {"trial_id": event.get("trial_id"), "cost": event["reserved_usd"]}
+        elif event.get("event") in ("response", "request_error") and event["request_id"] in requests:
+            requests[event["request_id"]]["cost"] = event["cost_upper_usd"]
+    # Keep failed attempts in the cost total, even when a later attempt completes.
+    all_attempts = list(read_jsonl(artifact_path(run_dir, "trials.jsonl")))
     rows = []
     for slot in schedule:
         trial = trials.get(slot["trial_id"], {})
@@ -57,8 +57,6 @@ def analyze(run_dir: Path):
             vals = group.get(metric, pd.Series(dtype=float)).dropna()
             summary[metric + "_median"] = float(vals.median()) if len(vals) else None
             summary[metric + "_iqr"] = float(vals.quantile(.75) - vals.quantile(.25)) if len(vals) else None
-        # Include every attempt's charge, not only the latest attempt used for verdicts.
-        all_attempts = [json.loads(line) for line in (artifact_path(run_dir, "trials.jsonl")).read_text().splitlines()] if (artifact_path(run_dir, "trials.jsonl")).exists() else []
         summary["cost_upper_usd"] = sum(t.get("cost_upper_usd", 0) for t in all_attempts if t["condition"] == condition)
         if requests:
             slot_ids = set(group.trial_id)

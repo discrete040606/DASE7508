@@ -1,8 +1,8 @@
 # Implementation verification — 2026-11-13
 
-Environment: macOS, Python 3.11.18, dependencies pinned in requirements.lock.txt. AI-assisted implementation requested by Yang Lingfeng. Independent human review was not performed, as explicitly waived by the leader.
+Checks were run on macOS with Python 3.11.18 and requirements.lock.txt. The sections below follow the work in order: initial offline validation, live pilot and formal run. AI assistance is recorded in [the project disclosure](../collaboration/ai-usage.md).
 
-Executed from the project root:
+Initial offline checks, executed from the project root:
 
 - `python -m pytest -q`: 20 passed, including Streamlit AppTest refresh/session checks, mocked HTTP retries and real Chroma queries using test vectors.
 - `python -m compileall -q src app`: passed.
@@ -16,12 +16,16 @@ Executed from the project root:
 
 The offline provider deliberately echoes retrieved records. Its apparent disclosure rates are fixture behaviour, not measured DeepSeek behaviour. Offline files remain locally under the ignored results/offline directory and can be regenerated using the commands above.
 
-Not executed: real DeepSeek calls, live pilot, live 300-trial research experiment. DEEPSEEK_API_KEY was not configured in the execution environment. No real-model security or cost findings are claimed. The next step is to configure the key locally, run the pilot, inspect the evidence, and start a new frozen formal run directory.
+At this stage the environment had no DEEPSEEK_API_KEY, so the initial checks did not make real API calls. The live runs were completed later, as recorded below.
 
 ## Live follow-up
 
-Real API access is now configured. See [the live pilot record](live-pilot.md) for the initial protocol failure, fix, 22 passing tests and the corrected 24/24 real pilot. Historical offline evidence above remains separately labelled. Formal experiment results must be read from their own frozen run directory.
+[The live pilot record](live-pilot.md) describes the protocol failure, correction, 22 passing tests and the successful 24/24 repeat pilot. Pilot and formal results use separate directories.
 
 ## Formal live completion
 
 The formal live run completed 300/300 first-attempt slots, 340 user turns and 680 paired requests/responses, with zero errors. Frozen provenance and every enforced owner constraint were checked. See [formal results](../formal-results.md) and the saved validation.json for exact rates and costs.
+
+## Readability and journal refactor — 2026-11-14
+
+26 tests passed after consolidating journal reading and cost aggregation. Scratch replays of formal/v1, pilot/v1 and pilot/v2 matched every saved summary value and denominator. The archived files, prompt/tool definitions, experiment inputs and existing cost ledger were unchanged. No paid API run was needed for this check.

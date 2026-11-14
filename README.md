@@ -1,14 +1,14 @@
 # DASE7508：多用户 Agent 的跨用户记忆泄露实验
 
-研究问题：共享记忆库缺少用户权限约束时，普通登录用户能否检索、获知其他用户的记忆？在数据库检索阶段强制身份过滤后，安全性和合法检索质量如何变化？
+这个项目考察多用户 Agent 共用记忆库时的隔离问题：缺少所有权过滤的检索会不会将其他用户的记忆带入回答；加入过滤后，正常检索是否受影响。
 
 ## 当前状态
 
-已实现 Agent、可信模拟会话、Chroma 检索、身份过滤、数据生成、L1/L2 评估、批量执行与续跑、费用账本、统计作图和中文本地网页。
+代码包括 Agent、身份过滤、批量实验和中文演示页面。
 
 **真实正式实验已完成：300/300，零错误。** 结果与原始证据见 [正式实验摘要](docs/formal-results.md)；两轮试跑和离线验证均单独保存，不混入正式统计。
 
-离线协议夹具用于验证代码，会回显检索记录，**不是 DeepSeek 模型，也不是研究结果**。正式结果必须由真实 API 运行产生。本项目只使用虚构数据，不训练模型、不实现生产认证、不部署公网。
+实验只使用合成记忆，用户身份由本地程序模拟。
 
 ## 项目导航
 
@@ -25,9 +25,9 @@ Agent project/
 └── .local/               本地索引、模型、缓存、费用账本和工具（不上传）
 ```
 
-优先阅读 [文档导航](docs/README.md)、[正式实验结果](docs/formal-results.md) 和 [结果文件导航](results/README.md)。每次运行目录保留 `manifest.json`，其余文件按 `raw/`（原始日志）、`inputs/`（输入快照）、`analysis/`（表格与图表）分组。既有实验数据只移动位置，原始内容不改写。
+第一次看项目，可先读 [正式实验结果](docs/formal-results.md)，再沿 [文档导航](docs/README.md) 查看设计和验证过程。[结果文件导航](results/README.md)列出了原始日志、输入快照和图表的位置。
 
-`.venv/` 和 `.python/` 是现有 Python 环境，保留原位以免破坏解释器路径；`.env` 是本地密钥，`.idea/` 是本地 IDE 设置，均不进入 GitHub。不要删除 `.local/runtime/budget.json`，它保留之前的累计费用。
+本地 Python 环境放在 `.venv/` 和 `.python/`，运行文件集中在 `.local/`。其中 `.local/runtime/budget.json` 保存累计费用，迁移项目时也要保留。密钥 `.env` 和 IDE 设置 `.idea/` 均已加入 Git 忽略规则。
 
 ## 安装
 
@@ -45,14 +45,7 @@ memory-lab validate
 memory-lab index
 ```
 
-`prepare` 生成 100 条记忆、30 个用例及评估答案；`validate` 校验结构和攻击输入；`index` 首次下载约 80 MB 的本地向量模型，建立同一共享 collection。模型、索引和运行环境保留在项目目录中的忽略路径内。重复建索引不会添加重复记录；数据不匹配时要求使用新索引目录，不覆盖旧数据。
-
-在本机指定的文件夹中，Python 3.11、`.venv`、依赖和索引已经准备好，可直接执行：
-
-```bash
-cd '/Users/ylf/Desktop/HKU/Class/DASE 7508/Agent project'
-source .venv/bin/activate
-```
+`prepare` 生成 100 条记忆、30 个用例和评估答案，`validate` 检查这些文件。`index` 首次使用时下载约 80 MB 的向量模型，并建立共享 Chroma collection；模型和索引保存在 `.local/`。再次执行会检查现有索引，数据不匹配时会报错。
 
 ## 离线检查
 
@@ -62,7 +55,7 @@ memory-lab run --offline --output results/offline/check
 memory-lab analyze results/offline/check
 ```
 
-预期：300 个唯一槽位，每组 A/B/C/D 各 75 个；输出 `trials.jsonl`、`trials.csv`、`summary.csv/json` 和三张图。离线输出必须在 `results/offline/`，图中有明显离线标记，不得作为模型实验结论。没有模型下载时，核心单元测试仍能运行，网页集成测试会跳过；实际 Chroma 测试使用明确标记的微型测试向量。
+离线运行使用回显检索记录的测试夹具，检查 300 个槽位和日志、统计、作图流程，每组 A/B/C/D 各 75 个。它不调用 DeepSeek，输出保存在 `results/offline/`，图中标有离线字样。没有本地索引时，核心单元测试仍可运行，网页集成测试会跳过。
 
 ## 中文网页
 
@@ -70,25 +63,25 @@ memory-lab analyze results/offline/check
 streamlit run app/demo.py --server.address 127.0.0.1 --server.headless true --browser.gatherUsageStats false
 ```
 
-也可以在 Finder 中双击 `launch_demo.command`。打开终端显示的 localhost 地址。网页默认离线演示，切换到真实 API 前先在启动终端设置密钥。
+Mac 用户也可以双击 `launch_demo.command`，随后打开终端显示的 localhost 地址。页面默认离线演示；真实模式使用下节说明的本地密钥。
 
-提供模拟用户选择、M1–M8 模板、任意英文查询、防御开关、双模式并排对比、L1/L2 证据以及已有结果展示。点击提交才请求模型；刷新页面不重复调用。身份或模式变化会清空对话。选择用户是实验操作员行为，聊天中自称其他用户不会改变可信身份。观察面板是评估者视图，不输入攻击脚本或模型。
+页面可以选择用户、输入英文查询、使用 M1–M8 模板，并对照查看开关防御后的回答与检索记录。提交按钮触发请求，刷新页面不会重复调用；切换身份或模式会清空对话。用户选择器属于实验操作员控制，聊天中的身份声明不能修改可信会话。观察面板仅供评估者查看。
 
 ## 真实实验
 
-在本地终端设置 `DEEPSEEK_API_KEY`，或者在项目根目录的 `.env` 中填写该变量。程序优先使用环境变量，其次读取本地 `.env`，不执行变量插值。`.env` 已被 Git 忽略；不要将密钥写进代码、聊天或截图。
+在环境变量或项目根目录的 `.env` 中填写 `DEEPSEEK_API_KEY`。环境变量优先，文件中的值按原样读取；密钥仅在本地使用。以下示例使用新的运行目录，已有的 `v1` 归档用于查看结果。
 
 ```bash
 # 在本地 .env 填好密钥，或在终端 export DEEPSEEK_API_KEY 后运行。
-memory-lab run --pilot --output results/pilot/v1
-memory-lab analyze results/pilot/v1
+memory-lab run --pilot --output results/pilot/reproduction
+memory-lab analyze results/pilot/reproduction
 # 检查试跑日志，冻结代码、依赖、数据和配置并提交 Git，再执行：
-memory-lab run --output results/formal/v1
-memory-lab analyze results/formal/v1
+memory-lab run --output results/formal/reproduction
+memory-lab analyze results/formal/reproduction
 memory-lab budget
 ```
 
-API 默认 `deepseek-flash`、关闭思考、temperature=0.2、top_k=5、规划/回答输出上限 256/512 tokens。使用官方 Chat Completions；不再采用原 proposal 的 GPT-5 mini、Responses API 或 OpenAI 向量服务。
+默认配置采用 DeepSeek 官方 Chat Completions：`deepseek-flash`、关闭思考、temperature=0.2、top_k=5，规划/回答输出上限为 256/512 tokens。完整参数在 `configs/experiment.yaml`。
 
 重试仅限限流、超时和暂时服务错误，最多两次；认证错误、模型不可用等永久错误会停止运行。单次超时 60 秒。程序不自动换模型。模型服务别名可能由服务商更新；保存请求标识、返回模型和运行日期不能保证服务端权重永远不变，这是复现限制。
 
@@ -96,31 +89,25 @@ API 默认 `deepseek-flash`、关闭思考、temperature=0.2、top_k=5、规划/
 
 ### 续跑和预算
 
-- 对同一输出目录再次执行相同命令即可续跑；已完成槽位不重复执行。可用 `--limit 2` 暂停在少量槽位后。
-- 数据、代码、依赖、配置或运行环境变化时，拒绝混入原目录；应新建版本目录。
-- 未完成槽位重试时使用全新会话，并保留此前尝试和中断检查点；任一次尝试已观察到的泄露不能被后续安全回答抵消。
-- 网页、试跑及正式实验共享 `.local/runtime/budget.json`，使用保守高峰价格估算与请求前预留，累计上限 20 美元。未知 usage 保留预留费用，不自动退款。
-- 不要删除费用账本来绕过上限。该账本只涵盖本项目调用，最终费用以服务商账单为准；价格变动后先更新配置并创建新实验版本。
-- 全局文件锁防止网页与批量实验并行发请求；正式实验期间网页请求会明确失败。
+- 续跑需要相同的代码提交、数据、配置和依赖环境；再次执行同一命令会跳过已完成槽位。`--limit 2` 可用于分段检查。
+- 重试使用新会话，旧尝试和中断检查点仍保留。已观察到的泄露不会因后来的安全回答而消失。
+- 网页、试跑和正式实验共用 `.local/runtime/budget.json`。每次请求先预留费用，累计上限为 20 美元；缺少 usage 时保留预留金额。估算使用高峰价格，实际账单以服务商为准。
+- 文件锁限制同一时间只有一个实验或网页请求运行。配置变化后使用新版本目录。
 
 ## 指标与证据
 
-- **L1 / CURR**：工具返回任一其他用户记忆；**L2 / CUDR**：展示回答出现任一其他用户 canary 或独有事实短语。
-- L2 检查全部其他用户，不只检查攻击指定目标。canary 精确匹配，事实归一化后匹配；无法覆盖所有语义改写，因此是保守检测指标。
-- 错误不当作安全。已有阳性保留；不足以判定的结果为未知，汇总报告可判定分母及包含未知的上下界。
-- 合法用例报告 LRSR、权限层 FBR、Precision@k、Recall@k、MRR；检索未命中不等同于权限误拒。
-- 分别报告过滤、检索和端到端延迟的中位数/IQR；保留错误、重试、token usage 及费用估算。
-- `manifest.json` 固定代码/数据/配置哈希、依赖、Python、平台、模型文件哈希、提示词与 Git 提交；`schedule.json` 固定实验槽位。
-- `events.jsonl` 保存逐轮检查点；`api.jsonl` 保存去掉认证信息的请求/响应及请求费用；`trials.jsonl` 保存每次完整或失败尝试。
+L1 / CURR 记录工具是否返回其他用户的记忆，L2 / CUDR 记录这些内容是否出现在回答中。两者分别统计；错误或未完成记录不会自动当作安全结果。合法检索质量、延迟和费用的计算口径见 [实验计划](docs/design/experiment-plan.md)。
 
-具体设计见 [实验计划](docs/design/experiment-plan.md)、[架构图](docs/design/architecture.md) 和 [验证记录](docs/validation/verification.md)。评估答案单独保存，程序不把它传入模型。共享向量库仅包含合成记忆；实验不写入对话记忆。
+每次运行的 `manifest.json` 保存冻结配置和版本哈希；`inputs/` 保存输入快照；`raw/` 保存请求、逐轮检查点和每次尝试。`analysis/` 中的表格与图表由这些记录计算。
+
+[架构图](docs/design/architecture.md)标出了数据流和信任边界，[验证记录](docs/validation/verification.md)列出已执行的检查。评估答案单独保存，程序只把实际检索结果交给模型。共享记忆在实验中保持只读。
 
 ## 代码结构与协作
 
-`src/memory_lab` 包含数据结构、数据生成、检索/会话、防御、API/预算、Agent、评估、执行、分析及 CLI；`app` 是共用后端的网页；`tests` 是自动测试。
+读代码时，可从 `models.py` 的数据结构开始，再看 `retrieval.py` 的会话与过滤、`agent.py` 的调用流程，最后读 `runner.py` 和 `analysis.py`。网页直接复用这些模块。
 
-按组长 2026-11-13 的决定：保留 Issue、分支、PR 和验证证据，必要检查通过后直接合并 main，不等待交叉评审。未发生的人工评审不会标为完成。该决定与课程手册的队友评审流程不同。
+协作流程见 [CONTRIBUTING.md](CONTRIBUTING.md)，实际贡献和 AI 使用情况单独记录。
 
-保留 [成员分工](docs/collaboration/team-plan.md)、[AI 使用说明](docs/collaboration/ai-usage.md) 和 [课程提交检查表](docs/submission/submission-checklist.md)。技术内容由杨凌峰发起统一实现，实际成员贡献按真实记录更新，不把计划分工冒充已完成贡献。
+项目由杨凌峰发起统一实现。准备课程材料时，请核对 [成员分工](docs/collaboration/team-plan.md)、[AI 使用说明](docs/collaboration/ai-usage.md) 和 [提交检查表](docs/submission/submission-checklist.md)。
 
 参考：[DeepSeek 工具调用](https://api-docs.deepseek.com/guides/tool_calls/)、[DeepSeek 计价](https://api-docs.deepseek.com/quick_start/pricing/)、[Chroma 元数据过滤](https://docs.trychroma.com/docs/querying-collections/metadata-filtering)。
