@@ -1,6 +1,6 @@
 # Team tasks and review plan
 
-The table preserves the proposal’s original allocation and the GitHub handles confirmed by the team leader. Reviewer names are suggestions; the current merge process is described in [CONTRIBUTING.md](../../CONTRIBUTING.md). Actual contributions are recorded separately below.
+The table preserves the proposal’s original allocation and the GitHub handles confirmed by the team leader. Reviewer names are suggestions; the current merge process is described in [CONTRIBUTING.md](../CONTRIBUTING.md). Actual contributions are recorded separately below.
 
 | Member | GitHub handle | Work issue | First deliverable | Proposed reviewer |
 | --- | --- | --- | --- | --- |
@@ -42,4 +42,4 @@ Update this table from merged PRs and retained evidence, not planned responsibil
 
 ## Unified implementation
 
-Yang Lingfeng requested the software implementation and real API runs through Codex. The formal run is complete; [the result summary](../formal-results.md) links its evidence. The final course report and presentation remain to be prepared.
+Yang Lingfeng requested the software implementation and real API runs through Codex. The formal run is complete; [the result summary](formal-results.md) links its evidence. The final course report and presentation remain to be prepared.

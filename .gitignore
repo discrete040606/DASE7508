@@ -40,3 +40,6 @@ chroma_db/
 
 # Offline protocol fixtures are not research evidence
 results/offline/
+
+# Teacher-provided course files remain local; do not redistribute them in the repository.
+references/

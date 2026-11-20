@@ -23,3 +23,7 @@ After local credential setup, Codex ran the pilot and corrected duplicate planni
 ## Readability maintenance (2026-11-14)
 
 Codex consolidated repeated documentation and refactored journal reading and cost aggregation. The experiment protocol and archived evidence were retained. Verification for this maintenance change is recorded in its PR.
+
+## Student reading layout (2026-11-20)
+
+At Yang Lingfeng's request, Codex moved the package to memory_lab/ and the web entry to demo.py, flattened the documentation, merged overlapping verification/submission documents and removed obsolete directory-migration notes. It added a Chinese reading guide and comments for the identity boundary, evidence retention and budget logic, and expanded dense formatting. Teacher PDFs were preserved locally in references/. This maintenance did not rerun paid experiments or change the archived findings.

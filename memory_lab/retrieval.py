@@ -1,3 +1,5 @@
+"""共享向量库、模拟可信会话和身份过滤；项目的权限边界在这里。"""
+
 import json
 import time
 import uuid
@@ -7,7 +9,8 @@ from .models import Session, USERS, digest, write_json
 
 
 class Sessions:
-    """Trusted local session manager; chat/model parameters never create sessions."""
+    """只有程序签发的会话才可信；查询文字中的身份声明不参与认证。"""
+
     def __init__(self):
         self._issued = {}
 
@@ -27,6 +30,7 @@ class Store:
         import chromadb
         from chromadb.utils.embedding_functions import DefaultEmbeddingFunction
         from chromadb.utils.embedding_functions.onnx_mini_lm_l6_v2 import ONNXMiniLM_L6_V2
+
         ONNXMiniLM_L6_V2.DOWNLOAD_PATH = path.parent / "models" / "all-MiniLM-L6-v2"
         self.embedding = embedding or DefaultEmbeddingFunction()
         self.client = chromadb.PersistentClient(path=str(path))
@@ -36,8 +40,10 @@ class Store:
             if meta.exists() and json.loads(meta.read_text())["sha256"] != self.fingerprint:
                 raise ValueError("Index belongs to a different dataset; use a new index directory")
             self.collection = self.client.get_or_create_collection(
-                "shared_memories", embedding_function=self.embedding,
-                metadata={"hnsw:space": "cosine", "dataset_sha256": self.fingerprint})
+                "shared_memories",
+                embedding_function=self.embedding,
+                metadata={"hnsw:space": "cosine", "dataset_sha256": self.fingerprint},
+            )
             if self.collection.metadata.get("dataset_sha256") != self.fingerprint:
                 raise ValueError("Collection dataset mismatch")
             ids = [m["memory_id"] for m in memories]
@@ -45,34 +51,59 @@ class Store:
             if existing and existing != set(ids):
                 raise ValueError("Partial index; rebuild in a new directory")
             if not existing:
-                self.collection.add(ids=ids, documents=[m["content"] for m in memories],
-                                    metadatas=[{"owner_user_id": m["owner_user_id"], "topic": m["topic"]} for m in memories])
+                self.collection.add(
+                    ids=ids,
+                    documents=[m["content"] for m in memories],
+                    metadatas=[
+                        {"owner_user_id": m["owner_user_id"], "topic": m["topic"]} for m in memories
+                    ],
+                )
             write_json(meta, {"sha256": self.fingerprint, "embedding": "all-MiniLM-L6-v2"})
         else:
             if not meta.exists() or json.loads(meta.read_text())["sha256"] != self.fingerprint:
                 raise ValueError("Missing or mismatched index: run memory-lab index")
-            self.collection = self.client.get_collection("shared_memories", embedding_function=self.embedding)
+            self.collection = self.client.get_collection(
+                "shared_memories", embedding_function=self.embedding
+            )
         self.check(memories)
 
     def check(self, memories):
+        """核对现有索引的 ID、所有权和正文，防止误用其他版本的数据。"""
         actual = self.collection.get(include=["documents", "metadatas"])
         expected = {m["memory_id"]: m for m in memories}
         if set(actual["ids"]) != set(expected):
             raise ValueError("Index record IDs do not match dataset")
         for mid, doc, meta in zip(actual["ids"], actual["documents"], actual["metadatas"]):
-            if doc != expected[mid]["content"] or meta["owner_user_id"] != expected[mid]["owner_user_id"]:
+            if (
+                doc != expected[mid]["content"]
+                or meta["owner_user_id"] != expected[mid]["owner_user_id"]
+            ):
                 raise ValueError("Index ownership/content was changed")
 
     def query(self, query, top_k, where=None):
-        # Fetch the authorised candidate set so exact distance ties have stable ID ordering.
-        args = {"query_texts": [query], "n_results": self.collection.count(),
-                "include": ["documents", "metadatas", "distances"]}
+        # 仅取授权范围内的候选集，再按距离和 ID 排序，保证距离相同时结果稳定。
+        args = {
+            "query_texts": [query],
+            "n_results": self.collection.count(),
+            "include": ["documents", "metadatas", "distances"],
+        }
         if where is not None:
             args["where"] = where
         result = self.collection.query(**args)
-        rows = [{"memory_id": mid, "owner_user_id": meta["owner_user_id"], "content": doc, "distance": float(dist)}
-                for mid, meta, doc, dist in zip(result["ids"][0], result["metadatas"][0],
-                                               result["documents"][0], result["distances"][0])]
+        rows = [
+            {
+                "memory_id": mid,
+                "owner_user_id": meta["owner_user_id"],
+                "content": doc,
+                "distance": float(dist),
+            }
+            for mid, meta, doc, dist in zip(
+                result["ids"][0],
+                result["metadatas"][0],
+                result["documents"][0],
+                result["distances"][0],
+            )
+        ]
         rows.sort(key=lambda r: (r["distance"], r["memory_id"]))
         return [dict(r, rank=i + 1) for i, r in enumerate(rows[:top_k])]
 
@@ -83,16 +114,33 @@ class Retrieval:
 
     def retrieve(self, query, session, filter_enabled):
         start = time.perf_counter()
+        # 即使关闭实验防御也要求有效会话；关闭的是所有权过滤，而不是身份校验。
         valid = self.sessions.verify(session)
-        decision = {"allowed": valid, "session_valid": valid, "reason": "valid_session" if valid else "invalid_session",
-                    "where": {"owner_user_id": session.authenticated_user_id} if valid and filter_enabled else None}
+        decision = {
+            "allowed": valid,
+            "session_valid": valid,
+            "reason": "valid_session" if valid else "invalid_session",
+            "where": (
+                {"owner_user_id": session.authenticated_user_id}
+                if valid and filter_enabled
+                else None
+            ),
+        }
         decision["latency_ms"] = (time.perf_counter() - start) * 1000
-        event = {"query": query, "top_k": self.top_k, "filter_enabled": filter_enabled,
-                 "decision": decision, "records": [], "completed": False, "retrieval_ms": 0.0}
+        event = {
+            "query": query,
+            "top_k": self.top_k,
+            "filter_enabled": filter_enabled,
+            "decision": decision,
+            "records": [],
+            "completed": False,
+            "retrieval_ms": 0.0,
+        }
         if not valid:
             event["completed"] = True
             return event
         start = time.perf_counter()
+        # where 在数据库查询时生效；查询失败只记录错误，不退回无过滤查询。
         try:
             event["records"] = self.store.query(query, self.top_k, where=decision["where"])
             event["completed"] = True

@@ -1,6 +1,6 @@
 # Experiment plan
 
-Status: real API formal run completed: 300/300 trials, zero errors. See [formal results](../formal-results.md) for actual results and evidence. Pilot and offline verification remain separate.
+Status: real API formal run completed: 300/300 trials, zero errors. See [formal results](formal-results.md) for actual results and evidence. Pilot and offline verification remain separate.
 
 ## Threat model
 

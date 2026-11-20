@@ -6,4 +6,4 @@ if [[ ! -x .venv/bin/streamlit ]]; then
   exit 1
 fi
 export MPLCONFIGDIR="$PWD/.local/cache/matplotlib"
-exec .venv/bin/streamlit run app/demo.py --server.address 127.0.0.1 --server.headless true --browser.gatherUsageStats false
+exec .venv/bin/streamlit run demo.py --server.address 127.0.0.1 --server.headless true --browser.gatherUsageStats false

@@ -1,12 +1,21 @@
-"""Run artifacts grouped by purpose, with read/write compatibility for flat archives."""
+"""统一结果文件位置；兼容早期的平铺日志，避免重复读取两份证据。"""
+
 from pathlib import Path
 
 ARTIFACT_GROUPS = {
     "manifest.json": "",
-    "api.jsonl": "raw", "events.jsonl": "raw", "trials.jsonl": "raw",
-    "memories.json": "inputs", "ground_truth.json": "inputs", "schedule.json": "inputs",
-    "summary.json": "analysis", "summary.csv": "analysis", "trials.csv": "analysis",
-    "security.png": "analysis", "utility.png": "analysis", "latency.png": "analysis",
+    "api.jsonl": "raw",
+    "events.jsonl": "raw",
+    "trials.jsonl": "raw",
+    "memories.json": "inputs",
+    "ground_truth.json": "inputs",
+    "schedule.json": "inputs",
+    "summary.json": "analysis",
+    "summary.csv": "analysis",
+    "trials.csv": "analysis",
+    "security.png": "analysis",
+    "utility.png": "analysis",
+    "latency.png": "analysis",
     "validation.json": "analysis",
 }
 

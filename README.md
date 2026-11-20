@@ -14,20 +14,21 @@
 
 ```text
 Agent project/
-├── src/memory_lab/       核心实验代码
-├── app/                  中文演示网页
-├── tests/                自动测试
+├── README.md             安装、运行与项目说明：从这里开始
+├── demo.py               中文网页入口
+├── launch_demo.command   Mac 双击启动网页
+├── memory_lab/           核心代码：数据 → 检索 → Agent → 评估 → 实验
 ├── configs/              实验参数
-├── data/                 合成输入与评估答案
-├── results/              正式实验与试跑证据
-├── docs/                 设计、结果、验证、协作和提交说明
-├── launch_demo.command   双击启动网页
-└── .local/               本地索引、模型、缓存、费用账本和工具（不上传）
+├── data/                 记忆、查询和评估答案
+├── tests/                自动测试
+├── results/              正式实验与试跑的原始记录、表格和图表
+├── docs/                 阅读指南、设计、结果和课程提交说明
+└── references/           老师提供的 PDF 原件（本地保留）
 ```
 
-第一次看项目，可先读 [正式实验结果](docs/formal-results.md)，再沿 [文档导航](docs/README.md) 查看设计和验证过程。[结果文件导航](results/README.md)列出了原始日志、输入快照和图表的位置。
+**读代码先看 [代码阅读指南](docs/code-guide.md)**，它按一次提问的执行顺序介绍各文件；再读 [正式实验结果](docs/formal-results.md)。结果文件的位置见 [结果导航](results/README.md)。
 
-本地 Python 环境放在 `.venv/` 和 `.python/`，运行文件集中在 `.local/`。其中 `.local/runtime/budget.json` 保存累计费用，迁移项目时也要保留。密钥 `.env` 和 IDE 设置 `.idea/` 均已加入 Git 忽略规则。
+隐藏目录 `.venv/`、`.python/` 是运行环境；`.local/` 保存下载模型、向量索引和缓存，其中 `runtime/budget.json` 是累计费用账本，不要删除。密钥 `.env` 和这些本地文件都不会上传。
 
 ## 安装
 
@@ -60,7 +61,7 @@ memory-lab analyze results/offline/check
 ## 中文网页
 
 ```bash
-streamlit run app/demo.py --server.address 127.0.0.1 --server.headless true --browser.gatherUsageStats false
+streamlit run demo.py --server.address 127.0.0.1 --server.headless true --browser.gatherUsageStats false
 ```
 
 Mac 用户也可以双击 `launch_demo.command`，随后打开终端显示的 localhost 地址。页面默认离线演示；真实模式使用下节说明的本地密钥。
@@ -96,18 +97,18 @@ memory-lab budget
 
 ## 指标与证据
 
-L1 / CURR 记录工具是否返回其他用户的记忆，L2 / CUDR 记录这些内容是否出现在回答中。两者分别统计；错误或未完成记录不会自动当作安全结果。合法检索质量、延迟和费用的计算口径见 [实验计划](docs/design/experiment-plan.md)。
+L1 / CURR 记录工具是否返回其他用户的记忆，L2 / CUDR 记录这些内容是否出现在回答中。两者分别统计；错误或未完成记录不会自动当作安全结果。合法检索质量、延迟和费用的计算口径见 [实验计划](docs/experiment-plan.md)。
 
 每次运行的 `manifest.json` 保存冻结配置和版本哈希；`inputs/` 保存输入快照；`raw/` 保存请求、逐轮检查点和每次尝试。`analysis/` 中的表格与图表由这些记录计算。
 
-[架构图](docs/design/architecture.md)标出了数据流和信任边界，[验证记录](docs/validation/verification.md)列出已执行的检查。评估答案单独保存，程序只把实际检索结果交给模型。共享记忆在实验中保持只读。
+[架构图](docs/architecture.md)标出了数据流和信任边界，[验证记录](docs/verification.md)列出已执行的检查。评估答案单独保存，程序只把实际检索结果交给模型。共享记忆在实验中保持只读。
 
 ## 代码结构与协作
 
-读代码时，可从 `models.py` 的数据结构开始，再看 `retrieval.py` 的会话与过滤、`agent.py` 的调用流程，最后读 `runner.py` 和 `analysis.py`。网页直接复用这些模块。
+代码阅读顺序和关键函数见 [代码阅读指南](docs/code-guide.md)。网页直接复用核心代码，没有单独维护第二套实验逻辑。
 
 协作流程见 [CONTRIBUTING.md](CONTRIBUTING.md)，实际贡献和 AI 使用情况单独记录。
 
-项目由杨凌峰发起统一实现。准备课程材料时，请核对 [成员分工](docs/collaboration/team-plan.md)、[AI 使用说明](docs/collaboration/ai-usage.md) 和 [提交检查表](docs/submission/submission-checklist.md)。
+项目由杨凌峰发起统一实现。准备课程材料时，请核对 [成员分工](docs/team-plan.md)、[AI 使用说明](docs/ai-usage.md) 和 [提交检查表](docs/submission.md)。
 
 参考：[DeepSeek 工具调用](https://api-docs.deepseek.com/guides/tool_calls/)、[DeepSeek 计价](https://api-docs.deepseek.com/quick_start/pricing/)、[Chroma 元数据过滤](https://docs.trychroma.com/docs/querying-collections/metadata-filtering)。
