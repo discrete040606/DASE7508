@@ -16,7 +16,8 @@ test = ["pytest>=8,<10"]
 memory-lab = "memory_lab.cli:main"
 
 [tool.setuptools.packages.find]
-where = ["src"]
+where = ["."]
+include = ["memory_lab*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

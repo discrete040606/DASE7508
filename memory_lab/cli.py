@@ -1,3 +1,5 @@
+"""命令行入口；根据子命令调用数据、索引、实验或分析模块。"""
+
 import argparse
 import os
 from pathlib import Path
@@ -18,7 +20,9 @@ def main():
     sub = parser.add_subparsers(dest="command", required=True)
     sub.add_parser("prepare", help="Generate and validate the frozen synthetic dataset")
     sub.add_parser("validate")
-    sub.add_parser("index", help="Build/check the local Chroma index (first run downloads embedding model)")
+    sub.add_parser(
+        "index", help="Build/check the local Chroma index (first run downloads embedding model)"
+    )
     run = sub.add_parser("run", help="Start or resume a run; live API unless --offline")
     run.add_argument("--output", type=Path, required=True)
     run.add_argument("--offline", action="store_true")
@@ -32,6 +36,7 @@ def main():
     prepare_environment(root)
     config = Config.load(root / args.config)
     from .data import generate, load
+
     if args.command == "prepare":
         generate(root)
         print("Prepared 100 synthetic memories, 30 cases and evaluator-only ground truth.")
@@ -40,6 +45,7 @@ def main():
         print("Dataset and all query/ground-truth constraints passed.")
     elif args.command == "index":
         from .retrieval import Store
+
         memories, _, _ = load(root)
         store = Store(root / ".local" / "chroma", memories, initialize=True)
         print(f"Indexed {store.collection.count()} records with local all-MiniLM-L6-v2.")
@@ -47,16 +53,22 @@ def main():
         if args.limit is not None and args.limit < 1:
             parser.error("--limit must be positive")
         from .provider import load_api_key
+
         if not args.offline and not load_api_key(root):
             parser.error("Set DEEPSEEK_API_KEY locally; use --offline only for protocol tests")
         from .runner import run as execute
+
         result = execute(root, config, root / args.output, args.offline, args.pilot, args.limit)
-        print(f"Recorded {len(result)} unique slots; inspect errors and completeness before reporting results.")
+        print(
+            f"Recorded {len(result)} unique slots; inspect errors and completeness before reporting results."
+        )
     elif args.command == "analyze":
         from .analysis import analyze
+
         print(analyze(root / args.run_dir).to_string(index=False))
     else:
         from .provider import Budget
+
         print(Budget(root, config).read())
 
 
