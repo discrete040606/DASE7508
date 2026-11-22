@@ -111,7 +111,7 @@ def analyze(run_dir: Path):
         plot = result.set_index("condition")[columns].apply(pd.to_numeric, errors="coerce")
         fig, ax = plt.subplots(figsize=(8, 4.5))
         if plot.notna().any().any():
-            plot.plot.bar(ax=ax)
+            plot.plot.bar(ax=ax, rot=0)
         else:
             ax.text(0.5, 0.5, "No evaluable observations", ha="center", transform=ax.transAxes)
         ax.set_title(prefix + "\n" + title)
