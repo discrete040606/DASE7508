@@ -43,3 +43,7 @@ results/offline/
 
 # Teacher-provided course files remain local; do not redistribute them in the repository.
 references/
+
+# Course drafts, local archives, and editor settings
+/submission/
+/.codex/
