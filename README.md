@@ -6,7 +6,7 @@
 
 代码包括 Agent、身份过滤、批量实验和中文演示页面。
 
-**真实正式实验已完成：300/300，零错误。** 结果与原始证据见 [正式实验摘要](docs/formal-results.md)；两轮试跑和离线验证均单独保存，不混入正式统计。
+**真实正式实验已完成：300/300，零错误。** 结果与原始证据见 [正式实验摘要](results/README.md)。
 
 实验只使用合成记忆，用户身份由本地程序模拟。
 
@@ -21,12 +21,10 @@ Agent project/
 ├── configs/              实验参数
 ├── data/                 记忆、查询和评估答案
 ├── tests/                自动测试
-├── results/              正式实验与试跑的原始记录、表格和图表
-├── docs/                 阅读指南、设计、结果和课程提交说明
-└── references/           老师提供的 PDF 原件（本地保留）
+└── results/              正式实验的原始记录、表格和图表
 ```
 
-**读代码先看 [代码阅读指南](docs/code-guide.md)**，它按一次提问的执行顺序介绍各文件；再读 [正式实验结果](docs/formal-results.md)。结果文件的位置见 [结果导航](results/README.md)。
+读代码可从 [Agent 入口](memory_lab/agent.py) 开始，沿 [可信会话与检索](memory_lab/retrieval.py)、[评估](memory_lab/evaluation.py)、[批量运行](memory_lab/runner.py) 和 [汇总](memory_lab/analysis.py) 查看。
 
 隐藏目录 `.venv/`、`.python/` 是运行环境；`.local/` 保存下载模型、向量索引和缓存，其中 `runtime/budget.json` 是累计费用账本，不要删除。密钥 `.env` 和这些本地文件都不会上传。
 
@@ -95,20 +93,14 @@ memory-lab budget
 - 网页、试跑和正式实验共用 `.local/runtime/budget.json`。每次请求先预留费用，累计上限为 20 美元；缺少 usage 时保留预留金额。估算使用高峰价格，实际账单以服务商为准。
 - 文件锁限制同一时间只有一个实验或网页请求运行。配置变化后使用新版本目录。
 
-## 指标与证据
+## 检索边界与核查
 
-L1 / CURR 记录工具是否返回其他用户的记忆，L2 / CUDR 记录这些内容是否出现在回答中。两者分别统计；错误或未完成记录不会自动当作安全结果。合法检索质量、延迟和费用的计算口径见 [实验计划](docs/experiment-plan.md)。
+模型工具只接收查询文本。应用从已签发的模拟会话取得用户 ID，开启过滤时把所有权条件传给 Chroma。无效会话无法查询，数据库错误也不会触发无过滤查询。两种过滤模式共用同一记忆库、系统提示和检索参数。实验期间记忆只读，评估答案仅供评估程序使用。
 
-每次运行的 `manifest.json` 保存冻结配置和版本哈希；`inputs/` 保存输入快照；`raw/` 保存请求、逐轮检查点和每次尝试。`analysis/` 中的表格与图表由这些记录计算。
+[正式实验结果](results/README.md)说明了四组设置、指标口径、检测范围和原始证据。助教可以用保存的日志重新计算结果，无需 DeepSeek 密钥。冻结版本和输入都可从运行目录的清单与快照核对。
 
-[架构图](docs/architecture.md)标出了数据流和信任边界，[验证记录](docs/verification.md)列出已执行的检查。评估答案单独保存，程序只把实际检索结果交给模型。共享记忆在实验中保持只读。
+## 项目贡献与 AI 协助
 
-## 代码结构与协作
-
-代码阅读顺序和关键函数见 [代码阅读指南](docs/code-guide.md)。网页直接复用核心代码，没有单独维护第二套实验逻辑。
-
-协作流程见 [CONTRIBUTING.md](CONTRIBUTING.md)，实际贡献和 AI 使用情况单独记录。
-
-项目由杨凌峰发起统一实现。准备课程材料时，请核对 [成员分工](docs/team-plan.md)、[AI 使用说明](docs/ai-usage.md) 和 [提交检查表](docs/submission.md)。
+杨凌峰负责项目协调和整合。Codex 协助搭建仓库、实现和检查代码、运行与分析试跑及正式实验，以及整理代码和文档。实际验证范围见关联 PR。课程提交中的成员个人贡献以组员核实后的记录为准。
 
 参考：[DeepSeek 工具调用](https://api-docs.deepseek.com/guides/tool_calls/)、[DeepSeek 计价](https://api-docs.deepseek.com/quick_start/pricing/)、[Chroma 元数据过滤](https://docs.trychroma.com/docs/querying-collections/metadata-filtering)。

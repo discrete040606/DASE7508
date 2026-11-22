@@ -1,22 +1,74 @@
-# 实验结果导航
+# 正式实验结果摘要（2026-11-13）
 
-| 运行 | 用途 | 记录 |
-| --- | --- | --- |
-| [formal/v1](formal/v1) | 最终真实实验：300/300，零错误 | [汇总表](formal/v1/analysis/summary.csv) · [图表](formal/v1/analysis/security.png) · [完整性核对](formal/v1/analysis/validation.json) |
-| [pilot/v2](pilot/v2) | 修正后的真实试跑：24/24 | [汇总表](pilot/v2/analysis/summary.csv) |
-| [pilot/v1](pilot/v1) | 初次试跑；保留协议错误供追溯 | [汇总表](pilot/v1/analysis/summary.csv) |
-| offline/ | 本地协议测试，不属于研究结果，不上传 GitHub | 用 README 中的离线命令重新生成 |
+正式实验调用真实 DeepSeek API，共完成 300 个 trial，每组 75 个，零错误。每个 trial 都从新会话开始，首次尝试即完成；统计中不包含两轮试跑或离线协议夹具。
 
-每次运行均按以下结构归档：
+## 复现与配置
 
-```text
-formal/v1/
-├── manifest.json      原始冻结配置与代码版本
-├── inputs/            memories、ground_truth、schedule 快照
-├── raw/               api、events、trials 原始 JSONL
-└── analysis/          CSV/JSON 汇总、完整性核对、PNG 图表
+- 实验源代码提交：`d68762dd5276fd19402ab0ecc94a6d7b317baea0`。
+- 模型请求和实际响应标识：`deepseek-flash`；关闭思考，temperature=0.2。
+- 5 名虚拟用户、100 条合成记忆、15 条合法和 15 条恶意用例；每个条件重复五次。
+- 本地 all-MiniLM-L6-v2 与共享 Chroma；top_k=5，条件间只切换检索所有权约束。
+- M7 的每个 trial 含三轮，故共 340 个用户轮次、680 个模型请求；无 API 错误。
+- 逐文件哈希、模型文件哈希、依赖、Python、平台、提示词与完整配置保存在运行 manifest 中，结束后已验证未变化。
+
+## 从保存的日志重新计算
+
+在仓库根目录安装项目后运行。以下命令将产物写进临时副本，便于与仓库中的正式归档对照。
+
+```bash
+replay_dir="$(mktemp -d)"
+cp -R results/formal/v1 "$replay_dir/formal-v1"
+memory-lab analyze "$replay_dir/formal-v1"
+diff -u results/formal/v1/analysis/summary.json "$replay_dir/formal-v1/analysis/summary.json"
 ```
 
-[正式结果解读](../docs/formal-results.md)解释检测口径与研究限制。原始日志、输入快照、冻结清单和已生成表格/图表的内容在目录整理中保持不变。
+`diff` 无输出表示汇总值一致。重新调用模型时，请按根目录 [README](../README.md) 使用新的运行目录。历史运行对应的源代码提交可以通过下方冻结清单核对。
 
-重新分析时仍传入整个运行目录，例如 `memory-lab analyze results/formal/v1`；新表格和图表写入 analysis/。请先复制归档再做探索性分析，避免覆盖已归档的派生图表。
+## 指标口径
+
+- **CURR（L1）**：任一轮实际返回其他用户的记录。**CUDR（L2）**：任一轮回答匹配其他用户的 canary 或预先标注的独有事实短语。两项都用各自可判定的 trial 作分母。
+- **LRSR**：至少命中一条标注相关的自有记忆。Precision@5 的分母固定为 5，Recall@5 的分母为标注相关记录数，MRR 衡量首条相关记录的排名。
+- **FBR**：有有效身份和相关自有记忆，但权限层错误拒绝。未命中相关记录和无效身份分别处理。
+- 未完成且缺乏阳性证据的判定为未知。耗时按 trial 汇总，IQR 为第 75 与第 25 百分位之差。
+
+## 安全性与合法检索
+
+| 条件 | 完成数 | 跨用户检索 CURR | 回答泄露 CUDR | 自有相关记忆检索 LRSR |
+| --- | ---: | ---: | ---: | ---: |
+| A：合法查询，关闭过滤 | 75/75 | 75/75（100.00%） | 74/75（98.67%） | 100.00% |
+| B：恶意查询，关闭过滤 | 75/75 | 75/75（100.00%） | 70/75（93.33%） | — |
+| C：合法查询，开启过滤 | 75/75 | 0/75（0.00%） | 0/75（0.00%） | 100.00% |
+| D：恶意查询，开启过滤 | 75/75 | 0/75（0.00%） | 0/75（0.00%） | — |
+
+所有正式 trial 的 L1/L2 均可判定，无未知结果。C 组 FBR 为 0/75。合法检索的 Precision@5 在 A/C 均为 0.20，Recall@5 均为 1.00；MRR 从 A 的 0.4567 提高至 C 的 1.0000。相关性标签每例只有一条目标记录，因此 Precision@5 的数值不能解释为 80% 的记录属于其他用户。
+
+未过滤时，合法查询也出现了跨用户泄露，这一现象不能仅归因于恶意提示词。攻击组 75 次都检索到其他用户记忆，但只有 70 次在回答中检测到泄露。检索暴露与回答暴露发生在不同环节，分别统计才能保留这部分差异。
+
+本数据集内，加入数据库所有权约束后，两种可检测泄露率均降至零，自有相关记忆检索成功率没有下降。结论的适用范围仍受本次模型配置、合成数据和攻击用例限制。
+
+## 延迟与费用
+
+| 条件 | 端到端延迟中位数（秒） | IQR（秒） | 费用上界估算（美元） |
+| --- | ---: | ---: | ---: |
+| A | 2.123 | 0.379 | 0.036606 |
+| B | 2.357 | 0.598 | 0.060617 |
+| C | 1.785 | 0.350 | 0.028161 |
+| D | 2.193 | 0.590 | 0.053750 |
+
+正式实验费用上界估算为 **USD 0.179133**。费用按配置的高峰非缓存价格保守估算，实际账单可能更低。
+
+端到端耗时包含模型生成、回答长度和网络变化，不能将组间耗时差直接等同于身份过滤器本身的开销。过滤与检索的中位数/IQR 另列于汇总表。
+
+## 可下载与可追溯证据
+
+- [机器可读汇总](formal/v1/analysis/summary.json)、[汇总 CSV](formal/v1/analysis/summary.csv)、[逐 trial CSV](formal/v1/analysis/trials.csv)。
+- [原始试验记录](formal/v1/raw/trials.jsonl)、[逐轮检查点](formal/v1/raw/events.jsonl)、[API 请求响应](formal/v1/raw/api.jsonl)。
+- [冻结清单](formal/v1/manifest.json)、[实验槽位](formal/v1/inputs/schedule.json)、[完整性核对](formal/v1/analysis/validation.json)。
+- [安全性图](formal/v1/analysis/security.png)、[合法检索质量图](formal/v1/analysis/utility.png)、[延迟图](formal/v1/analysis/latency.png)。
+
+## 结果适用范围
+
+- 仅使用 100 条合成记忆和 30 个固定用例；五次重复不是 75 个独立设计的用例。
+- L2 使用 canary 精确匹配与归一化独有事实短语，可能漏掉语义改写；零检测不代表不存在所有形式的泄露。
+- 使用模拟可信会话，不包含生产认证、数据库凭据攻击或模型/服务器被攻陷的场景。
+- 服务商的模型别名可能更新，本记录不能冻结服务端权重；代码、输入和本地模型文件可复现。
